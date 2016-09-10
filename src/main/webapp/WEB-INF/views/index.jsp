@@ -1,25 +1,23 @@
-<%@include file="head.jsp"%>
-<html>
+<% request.setAttribute("pageTitle", "EnterPrise Java Projects"); %>
+<%@include file="jsp/head.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
-<h2>User Display Exercise - Week 1</h2>
-<a href = "searchUser">Go to the User Search</a> <br/>
+<div id="main">
+    <!-- Top Section begins,  page's main content goes here -->
+    <c:import url="jsp/content_template.jsp" />
+    <!-- Top Section Ends -->
 
-<form name="search_employee" action="searchUser" method="POST">
-    <table cellpadding="20">
-        <tr>
-            <td>
-                <h4 >Search User By Last Name:</h4>
+    <!-- Mid Section begins -->
+    <c:import url="jsp/mid_section.jsp" />
+    <!-- Mid Section ends -->
 
-            </td>
-        </tr>
+    <!-- Bottom Section begins -->
+    <c:import url="jsp/bot_section.jsp" />
+    <!-- Bottom Section ends -->
 
-        <tr>
-            <td><div class="searchBox"><input type="search" name="lName" placeholder="Enter Last Name Here" required/><input type="submit" value="Go"/></div></td>
-        </tr>
-
-
-    </table>
-
-</form>
+</div> <!--End of Main Div-->
+<!-- footer begins -->
+<c:import url="jsp/footer.jsp" />
+<!-- footer ends -->
 </body>
 </html>
