@@ -1,8 +1,7 @@
 
 package com.ticCore.controllers;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller ;
@@ -15,8 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @ Controller
 public class MainController {
-    private static final Log logger = LogFactory
-            .getLog(MainController.class);
+    private final Logger logger = Logger.getLogger(this.getClass());
 
     @RequestMapping(value="/")
     public String home () {

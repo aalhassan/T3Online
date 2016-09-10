@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
 <div id="main">
+    <div align="right"><c:import url="jsp/login_fields.jsp"/></div>
     <!-- Top Section begins,  page's main content goes here -->
     <c:import url="jsp/content_template.jsp" />
     <!-- Top Section Ends -->

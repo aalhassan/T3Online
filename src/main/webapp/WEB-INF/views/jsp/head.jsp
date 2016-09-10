@@ -16,6 +16,7 @@
     <%@ page import = "java.io.*" %>
 
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="css/t3online.css" rel="stylesheet" type="text/css" />
 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
