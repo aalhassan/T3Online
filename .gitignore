@@ -32,7 +32,9 @@
 *.iws
 
 ## Plugin-specific files:
+
 ## property files
+
 database.properties
 
 # mpeltonen/sbt-idea plugin
