@@ -34,8 +34,6 @@
 /out/
 /target/
 
-*.properties
-
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -54,10 +52,7 @@ fabric.properties
 .idea/libraries/Maven__log4j_log4j_1_2_16.xml
 .idea/libraries/Maven__org_springframework_spring_test_2_5.xml
 logs/
-src/main/java/com/ticCore/beans/
-src/main/java/com/ticCore/controllers/AccountServices.java
-src/main/java/com/ticCore/dataServices/
-src/main/resources/
-src/main/webapp/css/t3online.css
-src/main/webapp/head.jsp
+#src/main/resources/
+#src/main/webapp/css/t3online.css
+#src/main/webapp/head.jsp
 target/
