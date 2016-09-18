@@ -67,9 +67,31 @@
             <version>2.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.11.Final</version>
+        </dependency>
+
 
     </dependencies>
     <build>
+      <!--  <resources>
+            <resource>
+            <directory>src/main/java/resources</directory>
+            <includes>
+                <include>**/*.txt</include>
+                <include>**/*.properties</include>
+            </includes>
+        </resource>
+            <resource>
+                <directory>src/test/java/resources</directory>
+                <includes>
+                    <include>**/*.txt</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>-->
         <finalName>T3Online</finalName>
     </build>
 </project>
