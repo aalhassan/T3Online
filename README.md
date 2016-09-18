@@ -40,7 +40,7 @@ In the future , I hope to expand this activity to a more complex one. As a resul
 * Independent Research Topics
   * Spring MVC
   * JSTL Forms and Data Binding
-  * 
+ 
 ### Design
 
 * [Screen Design]
