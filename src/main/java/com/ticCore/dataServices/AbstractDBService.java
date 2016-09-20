@@ -1,10 +1,13 @@
 package com.ticCore.dataServices;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 /**
@@ -31,7 +34,6 @@ public abstract class AbstractDBService {
      * @return whether creation was successful or not     */
 
 
-
     abstract public <T> void  create(T entity) ;
 
     /**
@@ -42,28 +44,8 @@ public abstract class AbstractDBService {
     abstract public <T> List<T> getAll() ;
 
     /**
-     * Gets  record(s)  from column using criteria
-     * @param column  Criteria's column (Null means no criteria match)
-     * @param match  Criteria value
-     * @param limit  max records to fetch (0 means fetch all)
-     * @return Object(s) gotten from DB or null
-     */
-
-    abstract public  <T> List<?>  getWithLimit(String column, T match, int limit) ;
-
-    /**
-     * Gets  record(s)  from column using criteria
-     * @param column  Criteria's column (Null means no criteria match)
-     * @param match  Criteria value
-     * @return Object(s) gotten from DB or null
-     */
-
-    abstract public <T> List<?>  get(String column, T match) ;
-
-    /**
      * Updates an existing record in DB
      * @param entity entity whose record will be updated
-     * @return whether update was successful or not
      */
 
     abstract public <T> void  update(T entity) ;
@@ -71,8 +53,30 @@ public abstract class AbstractDBService {
     /**
      * Deletes an existing record in DB
      * @param entity entity whose record will be updated
-     * @return whether update was successful or not
      */
 
     abstract public <T> void  delete(T entity);
+
+    /**
+     * Gets  record(s)  from column using criteria
+     * @param criteria  A list of column/value restriction mappings
+     * @param limit  max records to fetch (0 means fetch all)
+     * @return Object(s) gotten from DB or null
+     */
+
+    public  List<?>  getWithLimit(List<HashMap<String,Object>> criteria , int limit) {
+        return null;
+    }
+
+    /**
+     * Gets  record(s)  from column using criteria
+     * @param criteria  A list of column/value restriction mappings
+     * @return Object(s) gotten from DB or null
+     */
+
+    public List<?>  get(List<Map<String,?>> criteria) {
+        return null;
+
+    }
+
 }

@@ -29,14 +29,14 @@ public class AccountServicesTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         HttpSession session = request.getSession();
         request.setRequestURI("/login");
-        request.setAttribute("email", "mejbox@davisstudies.com");
-        request.setAttribute("password", "Passing");
+        request.setAttribute("email", "realmej@hotmail.com");
+        request.setAttribute("password", "firstPass");
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         accountServices.login(request,response);
 
         assertEquals("Session LoggedIn attribute Failed ", "successful", session.getAttribute("loggedIn"));
-        assertEquals("Username value failed","mejbox@davisstudies.com", session.getAttribute("logged_in_email"));
+        assertEquals("Username value failed","realmej@hotmail.com", session.getAttribute("logged_in_email"));
         assertNull("RequestErrors is to be empty/null",  (ArrayList<String>) request.getAttribute("errors"));
 
     }
@@ -47,7 +47,7 @@ public class AccountServicesTest {
         HttpSession session = request.getSession();
         request.setRequestURI("/login");
         request.setAttribute("email", null);
-        request.setAttribute("password", "Passing");
+        request.setAttribute("password", "firstPass");
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         accountServices.login(request,response);
