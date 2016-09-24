@@ -25,5 +25,16 @@ public class MainController {
     public String asyncReq () {
         return "asyncRequest";
     }
+
+    /** Gets value of a request attribute without need for casting
+     *@param request current request
+     *@param attribute session attribute
+     *@return value of the attribute or null
+     */
+    public static  <T> T getReqVal (HttpServletRequest request, String attribute) {
+        if (request.getAttribute(attribute) != null)
+            return (T) request.getAttribute(attribute);
+        return null;
+    }
 }
 

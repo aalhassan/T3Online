@@ -7,13 +7,16 @@ import org.hibernate.criterion.Restrictions;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by student on 9/19/16.
  */
-public class LoginDao  extends  AbstractDBService {
+public class LoginDao extends BaseDao {
 
+    @Override
+    protected Session getSession() {
+        return SessionFactoryProvider.getSessionFactory().openSession();
+    }
 
     @Override
     public List<?> getWithLimit(List<HashMap<String,Object>> restrictions, int limit) {
@@ -25,23 +28,4 @@ public class LoginDao  extends  AbstractDBService {
         return criteria.list();
     }
 
-    @Override
-    public <T> List<T> getAll() {
-       return null;
-    }
-
-    @Override
-    public <T> void create(T entity) {
-        //
-    }
-
-    @Override
-    public <T> void update(T entity) {
-        //
-    }
-
-    @Override
-    public <T> void delete(T entity) {
-        //
-    }
 }

@@ -1,0 +1,44 @@
+/*
+Written by Mej for Enterprise project
+*/
+
+.login_in_fields
+{
+   border-color: azure;
+    border-radius: 5px;
+
+}
+
+.login_status
+{
+    font-size: medium;
+    text-align: left;
+}
+
+
+.errors
+{
+    color: red;
+    display: none;
+    font-size: small;
+    display: none;
+}
+
+
+
+#login_info
+{
+    color: black ;
+    font-weight: bold;
+}
+
+.logout_link
+{
+    padding:10px;
+}
+
+#logged_in_message {
+    display:none;
+}
+
+

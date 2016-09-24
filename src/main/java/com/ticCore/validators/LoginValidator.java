@@ -1,26 +1,23 @@
 package com.ticCore.validators;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by student on 9/19/16.
  */
 public class LoginValidator implements RawValidator {
-    private ArrayList<String> errors;
 
-    public <T> void validate(T subject) {
+
+    public <T> Map<String,String> validate(T subject) {
         HttpServletRequest request = (HttpServletRequest) subject;
-        errors = new ArrayList<String>();
+        Map<String,String> errors = new HashMap<String, String>();
         if ((String) request.getAttribute("email") == null)
-            errors.add("email");
+            errors.put("email","Invalid Email");
         if ((String) request.getAttribute("password") == null)
-            errors.add("password");
+            errors.put("password","Password Invalid or not supplied");
+        return errors.size()>0? errors:null;
     }
 
-    public List<String> getValidationResults() {
-        return errors;
-    }
+
 }
