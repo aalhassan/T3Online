@@ -20,7 +20,7 @@ In the future , I hope to expand this activity to a more complex one. As a resul
   * JSTL form and spring validation to validate form entries
 
 * Database (MySQL and Hibernate)
-  * Store users and roles
+  * Store players
   * Store game info/status
   
 * Web Services or APIs
