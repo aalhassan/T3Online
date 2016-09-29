@@ -43,9 +43,9 @@ In the future , I hope to expand this activity to a more complex one. As a resul
  
 ### Design
 
-* [Screen Design]
-* [Application Flow]
-* [Database Design]
+* [Screen Design] (images/)
+* [Application Flow] (images/T3FlowChart.pdf)
+* [Database Design] (images/TicDB.pdf)
 
 
 
