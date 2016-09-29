@@ -9,10 +9,6 @@ a player an start a TicTacToe and be matched randomly with  remote opponent.
 
 In the future , I hope to expand this activity to a more complex one. As a result I am looking at making the architecture as flexible and scalable as I can.
 
-![Home ScreenShots]
-
-![Game ScreenShots]
-
 ### Project Technologies/Techniques 
 * Security/Authentication
   * All users have to register/login to be aple to start or particpate in game
@@ -43,9 +39,9 @@ In the future , I hope to expand this activity to a more complex one. As a resul
  
 ### Design
 
-* [Screen Design] (images/)
 * [Application Flow] (images/T3FlowChart.pdf)
 * [Database Design] (images/TicDB.pdf)
+* [Screen Design] (images/)
 
 
 
