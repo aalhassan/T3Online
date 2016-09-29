@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.stereotype.Controller ;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +23,7 @@ import java.util.Map;
  * Created by student on 9/5/16.
  */
 @ Controller
-@RequestMapping (value="/loginService", method= RequestMethod.POST)
+//@RequestMapping (value="/loginService", method= RequestMethod.POST)
 public class LoginServices {
     private final Logger logger = Logger.getLogger(this.getClass());
     private BaseDao dbService;
@@ -42,6 +40,10 @@ public class LoginServices {
         this.rawValidator = rawValidator;
     }
 
+    /**
+     * @param request Request from browser
+     * @return redirect page
+     */
     @RequestMapping (value="/login", method= RequestMethod.POST)
     public String login(HttpServletRequest request) {
         String redirectPage = "index";

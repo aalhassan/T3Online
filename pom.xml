@@ -67,11 +67,22 @@
             <version>2.5</version>
         </dependency>
 
+
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>4.3.11.Final</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.18</version>
+        </dependency>
+
+
+
 
 
     </dependencies>

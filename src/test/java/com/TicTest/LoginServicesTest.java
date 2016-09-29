@@ -16,7 +16,7 @@ import java.util.*;
 
 public class LoginServicesTest {
     LoginServices loginServices;
-    private static final String LOGIN_PATH = "/loginService/login";
+    private static final String LOGIN_PATH = "/login";
     @Before
     public void setup () {
         loginServices = new LoginServices();

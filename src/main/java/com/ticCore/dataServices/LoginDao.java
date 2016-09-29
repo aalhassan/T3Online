@@ -2,6 +2,7 @@ package com.ticCore.dataServices;
 
 import com.ticCore.beans.Login;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -19,7 +20,8 @@ public class LoginDao extends BaseDao {
     }
 
     @Override
-    public List<?> getWithLimit(List<HashMap<String,Object>> restrictions, int limit) {
+    public List<?> getWithLimit(List<HashMap<String,Object>> restrictions, int limit)
+                throws HibernateException {
         Criteria criteria = getSession().createCriteria(Login.class);
         criteria.setMaxResults(limit);
         for (HashMap<String, Object> criterion : restrictions) {

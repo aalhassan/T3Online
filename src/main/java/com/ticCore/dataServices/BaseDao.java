@@ -1,9 +1,12 @@
 package com.ticCore.dataServices;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,15 +23,7 @@ public abstract class BaseDao {
 
     public static int FETCH_ALL = 0;
     public static String ALL_COLUMNS = null;
-    private CrudHelper crudHelper;
 
-    public CrudHelper getCrudHelper() {
-        return crudHelper;
-    }
-
-    public void setCrudHelper(CrudHelper crudHelper) {
-        this.crudHelper = crudHelper;
-    }
 
     /**
      * Gets the hibernate session for perfroming DB transactions
@@ -45,19 +40,58 @@ public abstract class BaseDao {
      * @return Object(s) gotten from DB or null
      */
 
-    public  List<?>  getWithLimit(List<HashMap<String,Object>> criteria , int limit) {
+    public  List<?>  getWithLimit(List<HashMap<String,Object>> criteria , int limit)
+            throws HibernateException   {
         return null;
     }
 
     /**
      * Gets  record(s)  from column using criteria
-     * @param criteria  A list of column/value restriction mappings
+     * @param restrictions  A list of column/value restriction mappings
      * @return Object(s) gotten from DB or null
      */
 
-    public List<?>  get(List<HashMap<String,Object>> criteria ) {
-        return null;
+    public List<?>  get(List<HashMap<String,Object>> restrictions ) throws HibernateException {
+        return new ArrayList<Object>();
+    }
 
+    /**
+     * Creates a new record in DB
+     * @param entity entity whose record will be created
+     * @return whether creation was successful or not     */
+
+
+    public <T> Serializable create(T entity) throws HibernateException {
+
+        return getSession().save(entity);
+    }
+
+    /**
+     * View all records
+     * @return Object(s) gotten from DB or null
+     */
+
+    public List<?> getAll() throws HibernateException {
+        return null;
+    }
+
+    /**
+     * Updates an existing record
+     * @param entity entity whose record will be updated
+     */
+
+    public <T> void  update(T entity) throws HibernateException {
+
+        this.getSession().update(entity);
+    }
+
+    /**
+     * Deletes an existing record in DB
+     * @param entity entity whose record will be updated
+     */
+
+    public <T> void  delete(T entity) throws HibernateException {
+        getSession().delete(entity);
     }
 
 }

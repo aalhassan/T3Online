@@ -1,5 +1,8 @@
 package com.ticCore.dataServices;
 
+import org.hibernate.Session;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
@@ -7,6 +10,7 @@ import java.util.List;
  * @author  Mej
  * @since 09/2016
  */
+@Service
 public interface CrudHelper {
     /**
      * Creates a new record in DB
@@ -36,6 +40,13 @@ public interface CrudHelper {
      */
 
     public <T> void  delete(T entity) ;
+
+    /**
+     * Gets the hibernate session for perfroming DB transactions
+     * @return Session to perform db transactions  */
+
+
+    public Session getSession() ;
 
 
 }

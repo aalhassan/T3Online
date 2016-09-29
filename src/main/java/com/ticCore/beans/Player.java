@@ -4,12 +4,18 @@ package com.ticCore.beans;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * Entity to represent a player
  */
-public class Player {
+@Entity
+@Table(name = "Players")
+public class Player implements Serializable {
+
+
     @Id
-    @GeneratedValue(generator="increment")
+    @GeneratedValue(strategy=GenerationType.AUTO, generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "id")
     private int playerId;
@@ -25,6 +31,8 @@ public class Player {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Transient
     private String userName;
 
     @Column(name = "answer1")
@@ -35,12 +43,17 @@ public class Player {
 
     public Player() {
     }
-    /**
-     * Constructor to set a bunch of player properties
-     * @param player to be contructed
-     */
 
-    public Player(Player player) {
+
+    /**Attributes constructor for player
+     * @param email
+     * @param password
+     * @param firstName
+     * @param lastName
+     * @param answer1
+     * @param answer2
+     */
+    public Player(String email, String password, String firstName, String lastName, String answer1, String answer2) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -48,6 +61,8 @@ public class Player {
         this.answer1 = answer1;
         this.answer2 = answer2;
     }
+
+
 
     public String getEmail() {
         return email;

@@ -21,10 +21,6 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value="/asyncReq")
-    public String asyncReq () {
-        return "asyncRequest";
-    }
 
     /** Gets value of a request attribute without need for casting
      *@param request current request
