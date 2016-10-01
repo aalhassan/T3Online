@@ -5,16 +5,10 @@ import com.ticCore.controllers.AccountService;
 import com.ticCore.dataServices.PlayersDao;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
@@ -36,28 +30,19 @@ public class AccountServiceTest {
 
     @Test
     public void testCrudOperations() throws Exception {
-
-
-       /* Player testPlayer = new Player(TEST_PRE+"1@mail.com", "testPass", "test1", "testlast", "Mom", "Matrix");
-       *//* Model model = mock(Model.class);
-        when(model.asMap().get("player").thenReturn(testPlayer)*//*
-
-        String redirectPage = accountService.register(testPlayer);
-        assertEquals("Redirection page failed", "gamePage", redirectPage);
-
-        List<Player> players = accountService.getPlayer(testPlayer);
-        assertEquals("Player not created", 1, players.size());
-        Player loadedPlayer =  players.get(0);
-        assertEquals("Wrong player fetched",testPlayer.getEmail(), loadedPlayer.getEmail());
-        *//*Player loadedPlayer =  accountService.updatePlayer(testPlayer, "lastName", "testLast1").get(0);
+       /* RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
+        Player testPlayer = new Player(TEST_PRE+"3@mail.com", "testPass", "test1", "testlast", "Mom", "Matrix");
+        String redirectPage = accountService.register(testPlayer, redirectAttributes);
+        assertEquals("Redirection page failed", "redirect:/", redirectPage);
+        Player loadedPlayer = accountService.getPlayer(testPlayer);
         assertEquals("Wrong player fetched",testPlayer.getEmail(), loadedPlayer.getEmail());*/
+
     }
 
 
     @Test
     public void registerForm() throws Exception {
         Model model = mock(Model.class);
-
         String redirectPage = accountService.registerForm(model);
         assertEquals("Redirection to form failed","registerForm", redirectPage);
 

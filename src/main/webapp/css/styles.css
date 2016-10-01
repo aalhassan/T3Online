@@ -373,9 +373,11 @@ height:10px;
 font-weight:bold;
 }
 
-input[type="text"], .searchBox{
+/*input[type="text"], input[type="password"], .searchBox{
 border:turquoise solid 1px;
-}
+}*/
+
+
 input[type="submit"], .button{
 background-color: turquoise;
 color:white;

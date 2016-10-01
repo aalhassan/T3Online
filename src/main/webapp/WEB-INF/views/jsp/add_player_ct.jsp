@@ -5,39 +5,76 @@
             <c:import url="jsp/top_nav.jsp" />   
             <!--Beginning of included content -->
                 <h1 class="question">New Player Registration</h1>
-                    <form:form commandName="player" action="/accountService/savePlayer" method="post">
+                    <form:form commandName="player" action="/savePlayer" method="post">
                     <fieldset>
                         <legend>Enter all  info below</legend>
-                        <p>
-                            <label for="firstName">First Name: </label>
-                            <form:input id="firstName" path="firstName"/>
+                        <table>
+                        <tr>
+                            <td>
+                                <label for="firstName">First Name: </label></td>
+                            <td>
+                                <form:input id="firstName" path="firstName" cssClass="inputFields" cssErrorClass="errorFields"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="lastName">Last Name: </label></td>
+                            <td>
+                                <form:input id="lastName" path="lastName" cssClass="inputFields" cssErrorClass="errorFields"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="email">Email: </label>
+                            </td>
 
-                        </p>
-                        <p>
-                            <label for="lastName">Last Name: </label>
-                            <form:input id="lastName" path="lastName"/>
+                            <td>
+                                <form:input id="email" path="email" cssClass="inputFields" cssErrorClass="errorFields"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="password">Password: </label>
+                            </td>
 
-                        </p>
-                        <p>
-                            <label for="email">Email: </label>
-                            <form:input id="email" path="email"/>
+                            <td>
+                                <form:password id="password" path="password" cssClass="inputFields" cssErrorClass="errorFields"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="password1">Enter Password Again: </label>
+                            </td>
 
-                        </p>
-                        <p>Please provide answers below for password reset purposes. Passwords would only be
-                        reset using the answers below</p>
-                        <p>
-                            <label for="answer1">Favourite vacation city:</label>
-                            <form:input id="answer1" path="answer1"/>
+                            <td>
+                                <form:password id="password1" path="password1" cssClass="inputFields" cssErrorClass="errorFields"/>
+                            </td>
+                        </tr>
 
-                        </p>
+                        <tr>
+                            <td colspan="2">Passwords would only be reset using the answers provided below:</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="answer1">Favourite vacation city:</label>
+                            </td>
+                            <td>
+                                <form:input id="answer1" path="answer1" cssClass="inputFields" cssErrorClass="errorFields"/>
+                            </td>
+                        </tr>
 
-                        <p>
-                            <label for="answer2">City of birth:</label>
-                            <form:input id="answer2" path="answer2"/>
-
-                        </p>
-
-                        <p id="buttons">
+                        <tr>
+                            <td>
+                                <label for="answer2">City of birth:</label>
+                            </td>
+                            <td>
+                                <form:input id="answer2" path="answer2" cssClass="inputFields" cssErrorClass="errorFields"/>
+                            </td>
+                        </tr>
+                       </table>
+                        <form:errors id="errors" path="*"  cssClass="errorMessages"/>
+                        <br/>
+                        <p id="form_buttons">
                             <input id="reset" type="reset" tabindex="4">
                             <input id="submit" type="submit" tabindex="5"
                                    value="Register">

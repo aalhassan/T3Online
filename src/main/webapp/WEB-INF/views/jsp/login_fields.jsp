@@ -7,7 +7,7 @@
                         <td>Password:<br/><input id="password" class="login_in_fields"  type="password" name="password" size="10"/></td></tr>
 
             <tr><td colspan="2" class="errors login_error_message"></td></tr>
-            <tr><td colspan="2"><a href="register" id="register_link">New User? Create Account >>></a></tr>
+            <tr><td colspan="2"><a href="/register" id="register_link">New User? Create Account >>></a></tr>
         </table>
 
     </form>

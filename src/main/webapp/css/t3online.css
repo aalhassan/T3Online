@@ -15,6 +15,9 @@ Written by Mej for Enterprise project
     text-align: left;
 }
 
+.inputFields, .searchBox{
+    border:turquoise solid 1px;
+}
 
 .errors
 {
@@ -22,6 +25,20 @@ Written by Mej for Enterprise project
     display: none;
     font-size: small;
     display: none;
+}
+
+
+
+.errorMessages
+{
+    color: red;
+    font-size: small;
+}
+
+.errorFields
+{
+
+    border:red solid 1px;
 }
 
 

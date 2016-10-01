@@ -26,6 +26,9 @@ public class Player implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Transient
+    private String password1;
+
     @Column(name = "first_name")
     private String firstName;
 
@@ -74,6 +77,14 @@ public class Player implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getPassword1() {
+        return password1;
+    }
+
+    public void setPassword1(String password1) {
+        this.password1 = password1;
     }
 
     public void setPassword(String password) {
