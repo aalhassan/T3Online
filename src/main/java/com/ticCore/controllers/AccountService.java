@@ -7,6 +7,7 @@ import org.apache.log4j.*;
 
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -34,8 +35,13 @@ public class AccountService {
     @Autowired
     private BaseDao playersDao;
 
+    @Qualifier("playerValidator")
     @Autowired
     private Validator playersValidator;
+
+    @Qualifier("passResetValidator")
+    @Autowired
+    private Validator passResetValidator;
 
     //For testing purposes only
     public void setPlayersValidator(Validator playersValidator) {
@@ -77,7 +83,6 @@ public class AccountService {
 
         return redirectPage;
     }
-
     /**
      * @param model Map for all beans passed to and from the client
      * @return redirect view name
@@ -95,7 +100,35 @@ public class AccountService {
     public Player getPlayer(Player player) {
         HashMap<String,Object > restrictions = new HashMap<String, Object>();
         restrictions.put("email", player.getEmail() );
-        List<Player> players = (ArrayList<Player>)  playersDao.get(Arrays.asList(restrictions));
+        List<Player> players = (ArrayList<Player>)  playersDao.get(restrictions);
         return players.size()==1?players.get(0):null;
+    }
+
+    /** Updates an existing if requested from browser
+     * @param bindingResult holds results for entity validation
+     * @return redirect page
+     */
+    @RequestMapping (value="/updateUser", method= RequestMethod.POST)
+    public String update(@ModelAttribute Player player, BindingResult bindingResult) {
+        String redirectPage = "index";
+        passResetValidator.validate(player,bindingResult);
+        if (bindingResult.hasErrors()) {
+            FieldError fieldError = bindingResult.getFieldError();
+            logger.info("Code:" + fieldError.getCode() + ", field:"
+                    + fieldError.getField());
+            redirectPage = "resetPassword";
+        }
+        else {
+            try {
+                playersDao.update(player);
+            } catch (HibernateException ex) {
+
+                redirectPage = "resetPassword";
+            }
+
+        }
+
+        return redirectPage;
+
     }
 }

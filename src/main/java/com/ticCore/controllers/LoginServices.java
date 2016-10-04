@@ -7,6 +7,8 @@ import com.ticCore.validators.LoginValidator;
 import com.ticCore.validators.RawValidator;
 import org.apache.log4j.*;
 
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -71,21 +73,20 @@ public class LoginServices {
 
     /** Verifies login from request attributes
      *@param request current request
-     *@return A list of login details, expected to be of size 1 for valid logins
-     */
+     *@return A list of login details, expected to be of size 1 for valid logins     */
+
+
+
 
     private  List<Login>  verifyLogin (HttpServletRequest request) {
         List <Login> loginInfo = null;
         if (errors == null) {
-            ArrayList<HashMap<String, Object>> restrictions = new ArrayList<HashMap<String, Object>>();
-            HashMap<String, Object> emailCriteria = new HashMap<String, Object>();
-            HashMap<String, Object> passCriteria = new HashMap<String, Object>();
+            //ArrayList<HashMap<String, Object>> restrictions = new ArrayList<HashMap<String, Object>>();
+            HashMap<String, Object> restrictions = new HashMap<String, Object>();
 
-            emailCriteria.put("email", MainController.getReqVal(request, "email"));
-            passCriteria.put("password", MainController.getReqVal(request, "password"));
+            restrictions.put("email", MainController.getReqVal(request, "email"));
+            restrictions.put("password", MainController.getReqVal(request, "password"));
 
-            restrictions.add(emailCriteria);
-            restrictions.add(passCriteria);
 
             loginInfo =  (ArrayList<Login>) dbService.getWithLimit(restrictions, 1);
         }

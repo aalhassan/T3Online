@@ -21,6 +21,21 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping(value="/resetPassword")
+    public String resetPassword () {
+        return "resetPassword";
+    }
+
+    @RequestMapping(value="/adminLogin")
+    public String adminLogin () {
+        return "adminLogin";
+    }
+
+    @RequestMapping(value="/adminError")
+    public String adminError() {
+        return "adminError";
+    }
+
 
     /** Gets value of a request attribute without need for casting
      *@param request current request

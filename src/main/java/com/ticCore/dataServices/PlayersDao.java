@@ -23,12 +23,11 @@ public class PlayersDao extends BaseDao {
     }
 
     @Override
-    public List<?> get(List<HashMap<String, Object>> restrictions) throws HibernateException {
+    public List<?> get(HashMap<String, Object> restrictions) throws HibernateException {
 
         Criteria criteria = getSession().createCriteria(Player.class);
-        for (HashMap<String, Object> criterion : restrictions) {
-            criteria.add(Restrictions.allEq(criterion));
-        }
+            criteria.add(Restrictions.allEq(restrictions));
+
         return criteria.list();
     }
 
@@ -48,8 +47,25 @@ public class PlayersDao extends BaseDao {
 
     }
 
+    /**This particular implementation modifies a players password gonly
+     * @param entity entity whose record will be updated
+     * @throws HibernateException
+     */
     @Override
     public <T> void update(T entity) throws HibernateException {
-        super.update(entity);
+        Player player =  (Player) entity;
+        Session session= getSession();
+
+        final Transaction transaction = session.beginTransaction();
+        Criteria criteria = session.createCriteria(Player.class);
+        criteria.add(Restrictions.eq("email", player.getEmail()));
+        Player existingPlayer =  (Player) criteria.list().get(0);
+
+        //Update all fields as necessary
+        existingPlayer.setPassword(player.getPassword());
+        //End of updates
+
+        session.update(existingPlayer);
+        transaction.commit();
     }
 }

@@ -20,13 +20,11 @@ public class LoginDao extends BaseDao {
     }
 
     @Override
-    public List<?> getWithLimit(List<HashMap<String,Object>> restrictions, int limit)
+    public List<?> getWithLimit(HashMap<String,Object> restrictions, int limit)
                 throws HibernateException {
         Criteria criteria = getSession().createCriteria(Login.class);
         criteria.setMaxResults(limit);
-        for (HashMap<String, Object> criterion : restrictions) {
-            criteria.add(Restrictions.allEq(criterion));
-        }
+            criteria.add(Restrictions.allEq(restrictions));
         return criteria.list();
     }
 

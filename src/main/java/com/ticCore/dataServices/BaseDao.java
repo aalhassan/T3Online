@@ -40,18 +40,18 @@ public abstract class BaseDao {
      * @return Object(s) gotten from DB or null
      */
 
-    public  List<?>  getWithLimit(List<HashMap<String,Object>> criteria , int limit)
+    public  List<?>  getWithLimit(HashMap<String,Object> criteria , int limit)
             throws HibernateException   {
         return null;
     }
 
     /**
      * Gets  record(s)  from column using criteria
-     * @param restrictions  A list of column/value restriction mappings
+     * @param criterions  A list of column/value restriction mappings
      * @return Object(s) gotten from DB or null
      */
 
-    public List<?>  get(List<HashMap<String,Object>> restrictions ) throws HibernateException {
+    public List<?>  get(HashMap<String,Object> criterions ) throws HibernateException {
         return new ArrayList<Object>();
     }
 
