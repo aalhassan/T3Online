@@ -1,24 +1,23 @@
-<% request.setAttribute("pageTitle", "EnterPrise Java Projects"); %>
+<% request.setAttribute("pageTitle", "SSE Events"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <c:import url="head.jsp" />
+<c:import url="jsp/head.jsp" />
     <body>
         <div id="main">
-        <!-- Top Section begins,  page's main content goes here -->
-            <c:import url="content_template.jsp" />
+        <!-- Top Section begins,  page's main content goes here -->        
+            <c:import url="jsp/sse_client_ct.jsp" />
         <!-- Top Section Ends -->
         
         <!-- Mid Section begins -->
-            <c:import url="mid_section.jsp" />
+            <c:import url="jsp/mid_section.jsp" />
         <!-- Mid Section ends -->
         
         <!-- Bottom Section begins -->
-            <c:import url="bot_section.jsp" />
+            <c:import url="jsp/bot_section.jsp" />
         <!-- Bottom Section ends -->
         
         </div> <!--End of Main Div-->
     <!-- footer begins -->
-        <c:import url="footer.jsp" />
+        <c:import url="jsp/footer.jsp" />
     <!-- footer ends -->
     </body>
-<!-- Note: opening html tag is in head.jsp -->
 </html>

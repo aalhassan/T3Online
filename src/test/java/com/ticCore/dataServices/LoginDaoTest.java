@@ -1,9 +1,6 @@
 package com.ticCore.dataServices;
 
 import com.ticCore.beans.Login;
-import com.ticCore.controllers.MainController;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

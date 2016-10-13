@@ -1,6 +1,6 @@
 $(document).ready(function (){	
 	$("form").bind("submit",function(e) {		
-		var uri = "http://localhost:8080/CrunchifyRESTJerseyExample/crunchify/ctofservice/";
+		var uri = "http://localhost:8080/webServices/ctofservice/";
 		var append =  $("#celsius").val();
 		getF (uri ,append);
 		e.preventDefault();

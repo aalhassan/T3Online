@@ -1,7 +1,9 @@
 
 package com.ticCore.controllers;
 
+import com.ticCore.beans.Player;
 import org.apache.log4j.*;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller ;
@@ -21,8 +23,15 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping(value="/asyncReq")
+    public String asyncReq () {
+        return "asyncReq";
+    }
+
+
     @RequestMapping(value="/resetPassword")
-    public String resetPassword () {
+    public String resetPassword (Model model) {
+        model.addAttribute("player", new Player());
         return "resetPassword";
     }
 
@@ -35,6 +44,14 @@ public class MainController {
     public String adminError() {
         return "adminError";
     }
+
+    @RequestMapping(value="/sseClient")
+    public String sseClient() {
+        return "sseClient";
+    }
+
+
+
 
 
     /** Gets value of a request attribute without need for casting

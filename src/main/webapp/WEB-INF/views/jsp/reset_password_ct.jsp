@@ -4,7 +4,6 @@
         <div id="header" class="top_content">
             <c:import url="jsp/top_nav.jsp" />   
             <!--Beginning of included content -->
-            <jsp:useBean id="player" class="com.ticCore.beans.Player" scope="request"/>
                 <h1 class="question">Reset Player Password</h1>
                     <form:form commandName="player" action="/updateUser" method="post">
                     <fieldset>
