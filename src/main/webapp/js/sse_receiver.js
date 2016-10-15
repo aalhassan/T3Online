@@ -12,12 +12,9 @@ $(document).ready(function (){
 			// Sorry! No server-sent events support..
 			$("#results").html("<font color=\"red\">Sorry! No server-sent events support</font>");
 		}
-
 		e.preventDefault();
 	});
 });
-
-
 
 
 function renderSSEData( event, target ) {

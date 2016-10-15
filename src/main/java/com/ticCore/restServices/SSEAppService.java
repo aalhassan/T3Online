@@ -10,7 +10,7 @@ import javax.ws.rs.core.Application;
 
 
 @ApplicationPath("webServices")
-public class TicAppService extends Application {
+public class SSEAppService extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
@@ -25,8 +25,8 @@ public class TicAppService extends Application {
 
 /*
 @ApplicationPath("webServices")
-public class TicAppService extends ResourceConfig {
-    public TicAppService() {
+public class SSEAppService extends ResourceConfig {
+    public SSEAppService() {
         packages("com.ticCore.restServices");
     }
 }

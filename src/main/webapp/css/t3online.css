@@ -15,19 +15,9 @@ Written by Mej for Enterprise project
     text-align: left;
 }
 
-.inputFields, .searchBox{
+.inputFields, .searchBox, #startGame{
     border:turquoise solid 1px;
 }
-
-.errors
-{
-    color: red;
-    display: none;
-    font-size: small;
-    display: none;
-}
-
-
 
 .errorMessages
 {
@@ -40,8 +30,6 @@ Written by Mej for Enterprise project
 
     border:red solid 1px;
 }
-
-
 
 #login_info
 {
@@ -57,5 +45,38 @@ Written by Mej for Enterprise project
 #logged_in_message {
     display:none;
 }
+
+#gameBoard {
+    border-color: gray;
+}
+
+.boardRow {
+    background-color: forestgreen;
+    color:white;
+    font-size: larger;
+}
+.cell {
+    width:100px;
+    height:100px;
+    color: white;
+    font-size: 80px;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+.statusLabel {
+    font-weight: bold;
+    color: lightslategray;
+}
+
+.statusInfo {
+    font-weight: bold;
+    color: black;
+}
+
+
+
+
 
 

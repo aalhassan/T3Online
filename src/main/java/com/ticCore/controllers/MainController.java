@@ -50,6 +50,11 @@ public class MainController {
         return "sseClient";
     }
 
+    @RequestMapping(value="/gameBoard")
+    public String gamePage() {
+        return "gamePage";
+    }
+
 
 
 

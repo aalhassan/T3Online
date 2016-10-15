@@ -1,4 +1,4 @@
-<% request.setAttribute("pageTitle", "EnterPrise Java Projects"); %>
+<% request.setAttribute("pageTitle", "Login Error Page"); %>
 <%@include file="jsp/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>

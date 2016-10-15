@@ -1,4 +1,4 @@
-<% request.setAttribute("pageTitle", "Java 112 Projects"); %>
+<% request.setAttribute("pageTitle", "Async Request"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="jsp/head.jsp" />
     <body>
