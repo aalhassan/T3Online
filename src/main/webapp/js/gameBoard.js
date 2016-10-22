@@ -132,10 +132,10 @@ function renderGameStatus (){
 
 function renderBoard () {
 
-    $gameState.children("board").each( function (i, row) {
-        alert(row.text());
-        row.children("item").each( function (j, cell) {
-            alert(cell.text());
+    $gameState.children("board").each( function (i) {
+        alert(this.text());
+        row.children("item").each( function (j) {
+            alert(this.text());
 			if (cell.text() == "88")
 				renderText("X", "#"+i+j);
 			else if (cell.text() == "79")
