@@ -42,9 +42,11 @@ Written by Mej for Enterprise project
     padding:10px;
 }
 
+/*
 #logged_in_message {
     display:none;
 }
+*/
 
 #gameBoard {
     border-color: gray;

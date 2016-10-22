@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller ;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by student on 9/5/16.
@@ -61,13 +62,30 @@ public class MainController {
 
     /** Gets value of a request attribute without need for casting
      *@param request current request
+     *@param attribute request parameter
+     *@return value of the attribute or null
+     */
+    public static  <T> T getReqParam (HttpServletRequest request, String attribute) {
+        if (request.getParameter(attribute) != null)
+            return (T) request.getParameter(attribute);
+        return null;
+    }
+
+
+    /** Gets value of a request attribute without need for casting
+     *@param session current session
      *@param attribute session attribute
      *@return value of the attribute or null
      */
-    public static  <T> T getReqVal (HttpServletRequest request, String attribute) {
-        if (request.getAttribute(attribute) != null)
-            return (T) request.getAttribute(attribute);
+    public static  <T> T getSessVal (HttpSession session, String attribute) {
+
+        if (session.getAttribute(attribute) != null)
+            return (T) session.getAttribute(attribute);
         return null;
     }
+
+
 }
+
+
 

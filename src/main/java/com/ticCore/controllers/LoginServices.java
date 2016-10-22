@@ -7,14 +7,12 @@ import com.ticCore.validators.LoginValidator;
 import com.ticCore.validators.RawValidator;
 import org.apache.log4j.*;
 
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.stereotype.Controller ;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +23,6 @@ import java.util.Map;
  * Created by student on 9/5/16.
  */
 @ Controller
-//@RequestMapping (value="/loginService", method= RequestMethod.POST)
 public class LoginServices {
     private final Logger logger = Logger.getLogger(this.getClass());
     private BaseDao dbService;
@@ -60,7 +57,7 @@ public class LoginServices {
            logger.info("Login was successful");
            request.getSession().setAttribute("loggedIn", LOGIN_SUCCESSFUL);
            request.getSession().setAttribute("logged_in_email", loginInfo.get(0).getEmail());
-           redirectPage = "index";
+           redirectPage = "gamePage";
         } else if (errors == null) {
            errors = new HashMap<String,String>();
            errors.put("auth", AUTH_FAILED);
@@ -79,19 +76,17 @@ public class LoginServices {
 
 
     private  List<Login>  verifyLogin (HttpServletRequest request) {
-        List <Login> loginInfo = null;
-        if (errors == null) {
-            //ArrayList<HashMap<String, Object>> restrictions = new ArrayList<HashMap<String, Object>>();
-            HashMap<String, Object> restrictions = new HashMap<String, Object>();
 
-            restrictions.put("email", MainController.getReqVal(request, "email"));
-            restrictions.put("password", MainController.getReqVal(request, "password"));
+        if (errors != null)
+            return null;
 
+        HashMap<String, Object> restrictions = new HashMap<String, Object>();
 
-            loginInfo =  (ArrayList<Login>) dbService.getWithLimit(restrictions, 1);
-        }
+        restrictions.put("email", MainController.getReqParam(request, "email"));
+        restrictions.put("password", MainController.getReqParam(request, "password"));
 
-        return loginInfo;
+        return   (ArrayList<Login>) dbService.getWithLimit(restrictions, 1);
+
     }
 
 

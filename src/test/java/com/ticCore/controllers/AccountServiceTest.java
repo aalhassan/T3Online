@@ -1,4 +1,4 @@
-package com.TicTest;
+package com.ticCore.controllers;
 
 import com.ticCore.beans.Player;
 import com.ticCore.controllers.AccountService;

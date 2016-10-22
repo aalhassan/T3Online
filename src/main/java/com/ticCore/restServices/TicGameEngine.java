@@ -1,6 +1,15 @@
 package com.ticCore.restServices;
 
 import com.ticCore.beans.TicState;
+import org.glassfish.jersey.client.ClientConfig;
+
+import javax.print.attribute.standard.Media;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Created by student on 10/14/16.
@@ -9,13 +18,21 @@ public class TicGameEngine  implements  GameEngine {
 
     private TicState ticState ; //Entity encapsulates the state of the game
     private boolean gameInProgress;  // True while a game is being played;
-    private static final String WAIT_MESSAGE = "Connected, waiting for second player";
+    private static final String WAIT_MESSAGE = "Connected, waiting for second player...";
+    private static final String CONNECTED_MESSAGE = "Game in progress... You are playing ";
     public int updatesSent;
+    public final TicBroadCaster TIC_BROADCASTER = new TicBroadCaster(this);
+    private GameServer gameServer;
 
 
     public TicGameEngine(String gameSession) {
         ticState = new TicState();
         ticState.setGameSession(gameSession);
+    }
+
+    public TicGameEngine(String gameSession, GameServer gameServer) {
+        this(gameSession);
+        this.gameServer = gameServer;
     }
 
     public TicState getTicState() {
@@ -26,29 +43,32 @@ public class TicGameEngine  implements  GameEngine {
         return ticState.getGameSession();
     }
 
-    public String getPlayerPlayingX() {
-        return ticState.getPlayerPlayingX();
-    }
 
     public void setPlayerPlayingX(String playerPlayingX) {
+        if (ticState.getPlayerPlayingX() != null || playerPlayingX.equals(ticState.getPlayerPlayingO()) )
+            return;
+
         ticState.setPlayerPlayingX(playerPlayingX);
-        if (ticState.getPlayerPlayingO() != null)
+        if (ticState.getPlayerPlayingO() != null) {
+            ticState.setConnectionMessage(CONNECTED_MESSAGE);
             startGame();
+        }
         else {
             ticState.setConnectionMessage(WAIT_MESSAGE);
             sendGameState();
         }
     }
 
-    public String getPlayerPlayingO() {
-        return ticState.getPlayerPlayingO();
-
-    }
 
     public void setPlayerPlayingO(String playerPlayingO) {
+        if (ticState.getPlayerPlayingO() != null || playerPlayingO.equals(ticState.getPlayerPlayingX()) )
+            return;
+
         ticState.setPlayerPlayingO(playerPlayingO);
-        if (ticState.getPlayerPlayingX() != null)
-        startGame();
+        if (ticState.getPlayerPlayingX() != null) {
+            ticState.setConnectionMessage(CONNECTED_MESSAGE);
+            startGame();
+        }
         else {
             ticState.setConnectionMessage(WAIT_MESSAGE);
             sendGameState();
@@ -67,10 +87,11 @@ public class TicGameEngine  implements  GameEngine {
      *  @param message the message that was received from that player.
      */
     public <T> void processInputs(String sender, T message) {
-        if (gameInProgress && message instanceof int[] && sender.equals(ticState.getCurrentPlayer())) {
+        if (!gameInProgress || !(message instanceof int[]) || !sender.equals(ticState.getCurrentPlayer()))
+            return;
             // The message represents a move by the current player.
             int[] move = (int[])message;
-            if (move == null || move.length != 2)
+            if (move.length != 2)
                 return;
             int row = move[0];
             int col = move[1];
@@ -94,8 +115,9 @@ public class TicGameEngine  implements  GameEngine {
                 String playerPlayingO = ticState.getPlayerPlayingO();
                 ticState.setCurrentPlayer(currentPlayer.equals(playerPlayingX)? playerPlayingO : playerPlayingX);
             }
-        }
         sendGameState();
+
+
     }
 
     /**
@@ -126,7 +148,6 @@ public class TicGameEngine  implements  GameEngine {
                 ticState.getPlayerPlayingO());
         ticState.setGameEndedInTie(false);
         gameInProgress = true;
-
     }
 
     /**
@@ -135,24 +156,31 @@ public class TicGameEngine  implements  GameEngine {
     private boolean winner() {
         char[][] board = ticState.getBoard();
         if (board[0][0] != ' ' &&
-                (board[0][0] == board[1][1]&& board[1][1] == board[2][2]))
+                (board[0][0] == board[1][1] && board[1][1] == board[2][2])) {
+            ticState.setWinCells(new String[]{"00", "11", "22"});
             return true;
+        }
         if (board[0][2] != ' ' &&
-                (board[0][2] == board[1][1]&& board[1][1] == board[2][0]))
+                (board[0][2] == board[1][1] && board[1][1] == board[2][0])) {
+            ticState.setWinCells(new String[]{"02", "11", "20"});
             return true;
+        }
         for (int row = 0; row < 3; row++) {
             if (board[row][0] != ' ' &&
-                    (board[row][0] == board[row][1] && board[row][1] == board[row][2]))
+                    (board[row][0] == board[row][1] && board[row][1] == board[row][2])) {
+                ticState.setWinCells(new String[]{row + "0", row + "1", row + "2"});
                 return true;
+            }
         }
         for (int col = 0; col < 3; col++) {
             if (board[0][col] != ' ' &&
-                    (board[0][col] == board[1][col] && board[1][col] == board[2][col]))
+                    (board[0][col] == board[1][col] && board[1][col] == board[2][col])) {
+                ticState.setWinCells(new String[]{"0" + col, "1" + col, "2" + col});
                 return true;
+            }
         }
         return false;
     }
-
     /**
      * Check if the board is full.  (This is called after the winner method
      * has returned false, so a full board means that the game is a tie.)
@@ -167,6 +195,12 @@ public class TicGameEngine  implements  GameEngine {
     }
 
     public  void sendGameState() {
+       /* Client client = ClientBuilder.newBuilder()
+                .register(MessageBodyReaderWriter.class).build();
+
+        WebTarget gameServer = client.target("http://localhost:8080/gameServer/broadcast/"+ticState.getGameSession());
+        Response response = gameServer.request(MediaType.TEXT_PLAIN).post(Entity.entity(ticState,MediaType.APPLICATION_XML_TYPE));*/
+        gameServer.broadcastMessage(ticState.getGameSession(), ticState);
         updatesSent++;
     }
 
@@ -174,7 +208,6 @@ public class TicGameEngine  implements  GameEngine {
         String winnerId = playerId.equals(ticState.getPlayerPlayingX())? ticState.getPlayerPlayingX():
                     ticState.getPlayerPlayingO();
         endGame(winnerId,playerId);
-
     }
 
     /** Ends game engine
@@ -184,6 +217,7 @@ public class TicGameEngine  implements  GameEngine {
 
     private void endGame(String winnerId, String loserId) {
         ticState.setWinner(winnerId);
+        gameInProgress = false;
         sendGameState();
     }
 

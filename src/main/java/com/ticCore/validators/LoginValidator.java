@@ -12,9 +12,9 @@ public class LoginValidator implements RawValidator {
     public <T> Map<String,String> validate(T subject) {
         HttpServletRequest request = (HttpServletRequest) subject;
         Map<String,String> errors = new HashMap<String, String>();
-        if ((String) request.getAttribute("email") == null)
+        if ((String) request.getParameter("email") == null)
             errors.put("email","Invalid Email");
-        if ((String) request.getAttribute("password") == null)
+        if ((String) request.getParameter("password") == null)
             errors.put("password","Password Invalid or not supplied");
         return errors.size()>0? errors:null;
     }

@@ -1,6 +1,6 @@
 package com.ticCore.restServices;
 
-import org.glassfish.jersey.media.sse.EventOutput;
+import com.ticCore.beans.TicState;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -25,20 +25,20 @@ import java.lang.reflect.*;
  */
 @Provider
 @Produces({MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
-public class MessageBodyReaderWriter implements MessageBodyReader<EventOutput>, MessageBodyWriter<EventOutput> {
+public class MessageBodyReaderWriter implements MessageBodyReader<TicState>, MessageBodyWriter<TicState> {
     public boolean isReadable(Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType) {
         return true;
     }
 
-    public EventOutput readFrom(Class<EventOutput> msgClass, Type type, Annotation[] annotations,
+    public TicState readFrom(Class<TicState> msgClass, Type type, Annotation[] annotations,
                                 MediaType mediaType,
-                                MultivaluedMap<String, String> stringEventOutputMultivaluedMap,
+                                MultivaluedMap<String, String> stringTicStateMultivaluedMap,
                                 InputStream inputStream) throws IOException, WebApplicationException {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(EventOutput.class.getPackage().getName());
+            JAXBContext jaxbContext = JAXBContext.newInstance(TicState.class.getPackage().getName());
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            EventOutput msg = (EventOutput) unmarshaller.unmarshal(inputStream);
-            return msg;
+            return (TicState) unmarshaller.unmarshal(inputStream); //return object unmarshalled from from inputstream(XML)
+
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -49,14 +49,14 @@ public class MessageBodyReaderWriter implements MessageBodyReader<EventOutput>, 
         return true;
     }
 
-    public long getSize(EventOutput msg, Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType) {
+    public long getSize(TicState msg, Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType) {
         return -1;
     }
 
-    public void writeTo(EventOutput msg, Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> stringObjectMultivaluedMap, OutputStream outputStream) throws IOException, WebApplicationException {
+    public void writeTo(TicState msg, Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> stringObjectMultivaluedMap, OutputStream outputStream) throws IOException, WebApplicationException {
         try {
             if (mediaType.equals(MediaType.APPLICATION_XML_TYPE)) {
-                JAXBContext jaxbContext = JAXBContext.newInstance(EventOutput.class.getPackage().getName());
+                JAXBContext jaxbContext = JAXBContext.newInstance(TicState.class);
 
                 Marshaller marshaller = jaxbContext.createMarshaller();
                 marshaller.marshal(msg, outputStream);
@@ -69,7 +69,7 @@ public class MessageBodyReaderWriter implements MessageBodyReader<EventOutput>, 
         }
     }
 
-    private String getStringFromInputStream(InputStream is) {
+/*    private String getStringFromInputStream(InputStream is) {
 
         BufferedReader br = null;
         StringBuilder sb = new StringBuilder();
@@ -96,6 +96,6 @@ public class MessageBodyReaderWriter implements MessageBodyReader<EventOutput>, 
 
         return sb.toString();
 
-    }
+    }*/
 }
 

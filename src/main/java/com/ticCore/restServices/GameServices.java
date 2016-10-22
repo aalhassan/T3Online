@@ -15,6 +15,8 @@ public class GameServices extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<Class<?>>();
         classes.add(SseFeature.class);
+        classes.add(GameServer.class);
+        classes.add(MessageBodyReaderWriter.class);
 
         return classes;
     }

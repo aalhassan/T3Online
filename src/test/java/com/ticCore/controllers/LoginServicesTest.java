@@ -1,4 +1,4 @@
-package com.TicTest;
+package com.ticCore.controllers;
 
 import com.ticCore.controllers.LoginServices;
 import org.junit.Before;
@@ -17,6 +17,7 @@ import java.util.*;
 public class LoginServicesTest {
     LoginServices loginServices;
     private static final String LOGIN_PATH = "/login";
+
     @Before
     public void setup () {
         loginServices = new LoginServices();
@@ -28,13 +29,11 @@ public class LoginServicesTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         HttpSession session = request.getSession();
         request.setRequestURI(LOGIN_PATH);
-        request.setAttribute("email", "realmej@hotmail.com");
-        request.setAttribute("password", "firstPass");
-
-
+        request.setParameter("email", "realmej@hotmail.com");
+        request.setParameter("password", "firstPass");
         loginServices.login(request);
 
-        assertEquals("Session LoggedIn attribute Failed ", "Successful", session.getAttribute("loggedIn"));
+        assertEquals("Session LoggedIn attribute Failed ", "Successful", MainController.getSessVal(session,"loggedIn"));
         assertEquals("Username value failed","realmej@hotmail.com", session.getAttribute("logged_in_email"));
         assertNull("RequestErrors is to be null",  (HashMap<String,String>) request.getAttribute("errors"));
 
@@ -45,9 +44,9 @@ public class LoginServicesTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         HttpSession session = request.getSession();
         request.setRequestURI(LOGIN_PATH);
-        request.setAttribute("email", null);
-        request.setAttribute("password", "first");
-        MockHttpServletResponse response = new MockHttpServletResponse();
+        //request.setParameter("email", "");
+        request.setParameter("password", "firstPass");
+
 
         loginServices.login(request);
 
@@ -61,8 +60,8 @@ public class LoginServicesTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         HttpSession session = request.getSession();
         request.setRequestURI(LOGIN_PATH);
-        request.setAttribute("email", "realmej@hotmail.com");
-        request.setAttribute("password", null);
+        request.setParameter("email", "realmej@hotmail.com");
+        //request.setParameter("password", null);
 
 
         loginServices.login(request);
@@ -76,8 +75,8 @@ public class LoginServicesTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         HttpSession session = request.getSession();
         request.setRequestURI(LOGIN_PATH);
-        request.setAttribute("email", "realmej@hotmail.com");
-        request.setAttribute("password", "wrongPass");
+        request.setParameter("email", "realmej@hotmail.com");
+        request.setParameter("password", "wrongPass");
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         loginServices.login(request);
