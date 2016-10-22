@@ -1,10 +1,9 @@
 <!-- mid content begins -->       
 <div id="mid_content">
 	<h1>Overview</h1>
-    <b>This website contains list of (and access to Java 112) web projects</b><br />
-	    In the bottom section, you would find complete projects archive, 
-         information about our company, social networking and other contact info
-        <a href="#" class="read">read more</a>
+    <b>Enjoy your favorite board games online with fellow enthusiasts </b><br />
+    Tic Tac Toe is currently online. Chess, poker, skulls, cards against humanity are coming soon.
+
     </div><br/>
     
     <div style="height:10px; border-bottom: 1px solid #FFFFFF;"></div>
@@ -21,7 +20,7 @@
         <div style="height:3px; clear:both"></div>
           <div style="height:10px"></div>
           <b>Working to create a better world... </b><br />
-            We are firm beleiver in three musketeers motto: All for one and one for all
+            We are firm believers in three musketeers motto: All for one and one for all
             <div style="height:25px">
                 <a href="#" class="read">read more</a>
             </div>

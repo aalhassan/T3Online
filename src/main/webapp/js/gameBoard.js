@@ -7,45 +7,38 @@ var myId = null;
 var winner = null;
 var isTie = false;
 var gameSession = null;
-
 var $gameState = null;
 
+
+var oppTurn ="<font color=\"red\">Waiting for opponent's move</font>";
+var yourTurn = "<font color=\"blue\">Your move</font>";
 var youWon = "<font color=\"green\">Game Over. You won!</font>";
-var youLost = "<font color=\"red\">Game Over. You lost!</font>";
+var youLost = "<font color=\"red\">Game Over. You lost.</font>";
 var youTied = "<font color=\"gray\">Game Over. It was a tie!</font>";
+
+
+
 
 
 $(document).ready(function (){
 
 
 	$("#startGame").bind("click",function(e) {
+        $(this).fadeOut("slow");
 		var uri = server+"/gameServer/moves/newGame";
-
 		if(typeof(EventSource) !== "undefined") {
 			var source = new EventSource(uri);
 			source.onmessage = function(event){
-			    alert(event.data);
-				var gameState = $.parseXML(event.data);
-                $gameState = $(gameState);
-                connectionMessage = $gameState.find("connectionMessage").text();
-                playerX = $gameState.find("playerPlayingX").text();
-                playerO = $gameState.find("playerPlayingO").text();
-                currentPlayer = $gameState.find("currentPlayer").text();
-                winner = $gameState.find("winner").text();
-                isTie = $gameState.find("gameEndedInTie").text();
-                gameSession = $gameState.find("gameSession").text();
-                myId = $("#email").text();
-
+			    processEventData(event.data);
                 renderBoard();
 				renderGameStatus();
+
 			};
 
 		} else {
 			// Sorry! No server-sent events support..
 			$("#XO_info").html("<font color=\"red\">Sorry! Game not supported on this browser</font>");
 		}
-
-
 
 	});
 
@@ -57,19 +50,25 @@ $(document).ready(function (){
     });
 });
 
-function startGame (uri) {
-	$.ajax({
-		url: uri,
-		success: function (data) {
-			renderData(data, "#statusInfo")
-			$("#startGame").fadeOut();
-
-		},
-		fail: function (data) {
-			alert("Failed");
-		}
-	});
+/**Maps most global variables to server sent data
+ *
+ * @param data Data sent in server sent event
+ */
+function processEventData (data) {
+    //alert(event.data);
+    var gameState = $.parseXML(data);
+    $gameState = $(gameState);
+    connectionMessage = $gameState.find("connectionMessage").text();
+    playerX = $gameState.find("playerPlayingX").text();
+    playerO = $gameState.find("playerPlayingO").text();
+    currentPlayer = $gameState.find("currentPlayer").text();
+    winner = $gameState.find("winner").text();
+    isTie = $gameState.find("gameEndedInTie").text();
+    gameSession = $gameState.find("gameSession").text();
+    myId = $("#email").text();
 }
+
+
 function sendMessage(uri) {
     $.ajax({
         type: "POST",
@@ -99,47 +98,42 @@ function renderGameStatus (){
         }
 
         if (isCurrentPlayer()) {
-            renderText("Your Move", "#curStatus");
+            renderText(yourTurn, "#curStatus");
             highlight("#curStatus");
         }
         else {
-            renderText("Waiting for opponent's move", "#curStatus");
+            renderText(oppTurn, "#curStatus");
             highlight("#curStatus");
         }
 
 	}
-	else if (isTie == "false" && winner == myId ) {
+	else if (winner == myId ) {
         renderText(youWon, "#curStatus");
-        $gameState.find("winCells").each( function (i, row) {
-            row.find("item").each( function (j, cell) {
-                highlight("#"+i+j);
-            })
+        $gameState.find("winCells").each( function () {
+            highlight("#"+$(this).text());
+            $("#startGame").fadeIn("slow");
         });
 
     }
-    else if (isTie == "false" && winner != myId && winner != "") {
+    else if (winner != myId && winner != "") {
         renderText(youLost, "#curStatus");
-        $gameState.children("winCells").each( function (i, row) {
-            row.children("item").each( function (j, cell) {
-                highlight("#"+i+j);
-            })
+        $gameState.find("winCells").each( function () {
+                highlight("#"+$(this).text());
+                $("#startGame").fadeIn("slow");
         });
     } else if (isTie  == "true") {
         renderText(youTied, "#curStatus");
+        $("#startGame").fadeIn("slow");
     }
 
 }
 
 function renderBoard () {
 
-    $gameState.children("board").each( function (i) {
-        alert(this.text());
-        row.children("item").each( function (j) {
-            alert(this.text());
-			if (cell.text() == "88")
-				renderText("X", "#"+i+j);
-			else if (cell.text() == "79")
-                renderText("O", "#"+i+j);
+    $gameState.find("board").each( function (i) {
+        $(this).children("item").each( function (j) {
+            var curChar = String.fromCharCode($(this).text());
+            renderText(curChar, "#"+i+j);
 		})
 	});
 
@@ -170,19 +164,4 @@ function isCurrentPlayer() {
 }
 
 
-
-/*var playerConnecting = "<font color=\"red\">Connecting to game hub...Please do not close browser throughout game session</font>";
- var playerWaiting = "<font color=\"black\">Player matchmaking in progress...</font>";
- var playerFound = "<font color=\"green\">Second player joined. Allocating X/O...</font>";
- var playingO = "<font color=\"green\">Game in progress. You are playing O</font>";
- var playingX = "<font color=\"green\">Game in progress. You are playing X</font>";
- var oppTurn= "<font color=\"red\">Waiting for opponent's move</font>";
- var yourTurn= "<font color=\"green\">Your move</font>";
- var youWon = "<font color=\"green\">Game Over. You won!</font>";
- var youLost = "<font color=\"red\">Game Over. You lost!</font>";
- var youTied = "<font color=\"gray\">Game Over. It was a tie!</font>";
- var X = "X";
- var O = "O";
- var gameInProgress = false;
- var currentPlayer = false;*/
 

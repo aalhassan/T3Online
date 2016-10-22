@@ -11,7 +11,7 @@
                         <tr class="boardRow"><td id="00" class="cell"></td><td id="01" class="cell"></td><td id="02" class="cell"></td></tr>
                         <tr class="boardRow"><td id="10" class="cell"></td><td id="11" class="cell"></td><td id="12" class="cell"></td></tr>
                         <tr class="boardRow"><td id="20" class="cell"></td><td id="21" class="cell"></td><td id="22" class="cell"></td></tr>
-                        <tr><td colspan="3" id= "startButton"><button type="submit" href="" id="startGame">Start Game</button></td></tr>
+                        <tr><td colspan="3" id= "startButton"><button type="submit" href="" id="startGame">Start New Game</button></td></tr>
 
                     </table>
 
