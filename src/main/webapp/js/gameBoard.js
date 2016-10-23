@@ -1,4 +1,4 @@
-var server= "http://192.168.75.130:8080";
+var server= "http://192.168.2.8:8080";
 var connectionMessage = null;
 var playerX = null;
 var playerO = null;
@@ -24,7 +24,7 @@ $(document).ready(function (){
 
 
 	$("#startGame").bind("click",function(e) {
-        $(this).fadeOut("slow");
+        initInterface();
 		var uri = server+"/gameServer/moves/newGame";
 		if(typeof(EventSource) !== "undefined") {
 			var source = new EventSource(uri);
@@ -32,7 +32,6 @@ $(document).ready(function (){
 			    processEventData(event.data);
                 renderBoard();
 				renderGameStatus();
-
 			};
 
 		} else {
@@ -84,8 +83,13 @@ function sendMessage(uri) {
     });
 }
 
-function renderGameStatus (){
+function initInterface() {
+    $("#startGame").fadeOut("slow");
+    renderText("", ".cell");
+}
 
+function renderGameStatus (){
+    //If there is no winner yet
 	if (winner == "" &&  isTie == "false") {
 	    if(playerX != "" && playerO == "")
             renderText(connectionMessage, "#XO_info");
@@ -101,12 +105,13 @@ function renderGameStatus (){
             renderText(yourTurn, "#curStatus");
             highlight("#curStatus");
         }
-        else {
+        else if (playerO != "") {
             renderText(oppTurn, "#curStatus");
             highlight("#curStatus");
         }
 
 	}
+	//if there is a winner and it's me
 	else if (winner == myId ) {
         renderText(youWon, "#curStatus");
         $gameState.find("winCells").each( function () {
@@ -115,13 +120,16 @@ function renderGameStatus (){
         });
 
     }
+    //if there is a winner and it's  not me
     else if (winner != myId && winner != "") {
         renderText(youLost, "#curStatus");
         $gameState.find("winCells").each( function () {
                 highlight("#"+$(this).text());
                 $("#startGame").fadeIn("slow");
         });
-    } else if (isTie  == "true") {
+    }
+    //if it's a tie
+    else if (isTie  == "true") {
         renderText(youTied, "#curStatus");
         $("#startGame").fadeIn("slow");
     }

@@ -30,7 +30,7 @@ public class LoginServicesTest {
         HttpSession session = request.getSession();
         request.setRequestURI(LOGIN_PATH);
         request.setParameter("email", "realmej@hotmail.com");
-        request.setParameter("password", "firstPass");
+        request.setParameter("password", "gw");
         loginServices.login(request);
 
         assertEquals("Session LoggedIn attribute Failed ", "Successful", MainController.getSessVal(session,"loggedIn"));
