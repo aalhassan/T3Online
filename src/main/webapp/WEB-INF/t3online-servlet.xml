@@ -16,10 +16,10 @@
     <mvc:annotation-driven/>
 
     <!--Declaring resources external to WEB-INF -->
-    <mvc:resources mapping="/css/**" location="/css/"/>
-    <mvc:resources mapping="/js/**" location="/js/"/>
-    <mvc:resources mapping="/lib/**" location="/lib/"/>
-    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/css/**" location="css/"/>
+    <mvc:resources mapping="/js/**" location="js/"/>
+    <mvc:resources mapping="/lib/**" location="lib/"/>
+    <mvc:resources mapping="/images/**" location="images/"/>
 
 
     <bean id="viewResolver"

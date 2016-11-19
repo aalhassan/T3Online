@@ -86,6 +86,8 @@ function sendMessage(uri) {
 function initInterface() {
     $("#startGame").fadeOut("slow");
     renderText("", ".cell");
+    renderText("", "#curStatus");
+    renderText("", "#opponentStatus");
 }
 
 function renderGameStatus (){
@@ -105,7 +107,7 @@ function renderGameStatus (){
             renderText(yourTurn, "#curStatus");
             highlight("#curStatus");
         }
-        else if (playerO != "") {
+        else if (playerO != "" && playerX != "") {
             renderText(oppTurn, "#curStatus");
             highlight("#curStatus");
         }

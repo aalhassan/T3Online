@@ -27,7 +27,7 @@ public class GameRecords {
      * @param request player's current session
      * @return page to navigate to
      */
-    @RequestMapping(value="/myGames")
+    @RequestMapping(value="myGames")
     public String getGameRecords(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("logged_in_email") == null)

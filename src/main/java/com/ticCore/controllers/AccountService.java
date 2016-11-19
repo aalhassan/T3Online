@@ -57,7 +57,7 @@ public class AccountService {
      * @param player player entity representing the player to register
      * @return redirect view name
      */
-    @RequestMapping (value="/savePlayer", method= RequestMethod.POST)
+    @RequestMapping (value="savePlayer", method= RequestMethod.POST)
 
 
     public String register(@ModelAttribute Player player, BindingResult bindingResult) {
@@ -87,7 +87,7 @@ public class AccountService {
      * @param model Map for all beans passed to and from the client
      * @return redirect view name
      */
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "register")
     public String registerForm(Model model) {
         model.addAttribute("player", new Player());
         return "registerForm";
@@ -108,7 +108,7 @@ public class AccountService {
      * @param bindingResult holds results for entity validation
      * @return redirect page
      */
-    @RequestMapping (value="/updateUser", method= RequestMethod.POST)
+    @RequestMapping (value="updateUser", method= RequestMethod.POST)
     public String update(@ModelAttribute Player player, BindingResult bindingResult) {
         String redirectPage = "index";
         passResetValidator.validate(player,bindingResult);

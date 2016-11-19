@@ -19,39 +19,44 @@ import javax.servlet.http.HttpSession;
 public class MainController {
     private final Logger logger = Logger.getLogger(this.getClass());
 
-    @RequestMapping(value="/")
+    @RequestMapping(value="")
     public String home () {
         return "index";
     }
 
-    @RequestMapping(value="/asyncReq")
+    @RequestMapping(value="home")
+    public String homeNav () {
+        return "index";
+    }
+
+    @RequestMapping(value="asyncReq")
     public String asyncReq () {
         return "asyncReq";
     }
 
 
-    @RequestMapping(value="/resetPassword")
+    @RequestMapping(value="resetPassword")
     public String resetPassword (Model model) {
         model.addAttribute("player", new Player());
         return "resetPassword";
     }
 
-    @RequestMapping(value="/adminLogin")
+    @RequestMapping(value="adminLogin")
     public String adminLogin () {
         return "adminLogin";
     }
 
-    @RequestMapping(value="/adminError")
+    @RequestMapping(value="adminError")
     public String adminError() {
         return "adminError";
     }
 
-    @RequestMapping(value="/sseClient")
+    @RequestMapping(value="sseClient")
     public String sseClient() {
         return "sseClient";
     }
 
-    @RequestMapping(value="/gameBoard")
+    @RequestMapping(value="gameBoard")
     public String gamePage(HttpSession session) {
         if (session.getAttribute("logged_in_email") != null)
         return "gamePage";

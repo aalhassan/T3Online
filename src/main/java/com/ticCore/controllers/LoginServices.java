@@ -43,7 +43,7 @@ public class LoginServices {
      * @param request Request from browser
      * @return redirect page
      */
-    @RequestMapping (value="/loggedIn", method= RequestMethod.POST)
+    @RequestMapping (value="loggedIn", method= RequestMethod.POST)
     public String login(HttpServletRequest request) {
         String redirectPage = "index";
         setDbService(new LoginDao());
@@ -57,7 +57,6 @@ public class LoginServices {
            logger.info("Login was successful");
            request.getSession().setAttribute("loggedIn", true);
            request.getSession().setAttribute("logged_in_email", loginInfo.get(0).getEmail());
-           redirectPage = "gamePage";
         } else if (errors == null) {
            errors = new HashMap<String,String>();
            errors.put("auth", AUTH_FAILED);
@@ -73,7 +72,7 @@ public class LoginServices {
      *@param session current session
      *@return A list of login details, expected to be of size 1 for valid logins     */
 
-    @RequestMapping(value="/loggedOut")
+    @RequestMapping(value="loggedOut")
     public String logout(HttpSession session) {
         session.invalidate();
         return "index";
