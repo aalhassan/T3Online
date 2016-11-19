@@ -52,9 +52,15 @@ public class MainController {
     }
 
     @RequestMapping(value="/gameBoard")
-    public String gamePage() {
+    public String gamePage(HttpSession session) {
+        if (session.getAttribute("logged_in_email") != null)
         return "gamePage";
+        else {
+            return "LoginError";
+        }
     }
+
+
 
 
 

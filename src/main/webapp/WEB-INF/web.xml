@@ -15,42 +15,9 @@
         <servlet-mapping>
         <servlet-name>t3online</servlet-name>
         <!-- Map all t3online requests to the DispatcherServlet -->
-        <url-pattern>/t3online/*</url-pattern>
+        <url-pattern>/</url-pattern>
         </servlet-mapping>
-<!--
-        <servlet>
-                <servlet-name>T3Online Web Services</servlet-name>
-                <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-                <load-on-startup>1</load-on-startup>
-        </servlet>
-        <servlet-mapping>
-                <servlet-name>T3Online Web Services</servlet-name>
-                <url-pattern>/webServices/*</url-pattern>
-        </servlet-mapping>-->
 
-        <!-- Servlet declaration can be omitted in which case
-       it would be automatically added by Jersey -->
-      <!--  <servlet>
-                <servlet-name>t3Rest</servlet-name>
-            <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-
-                <init-param>
-                        <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
-                        <param-value>true</param-value>
-
-                </init-param>
-                <init-param>
-                        <param-name>com.sun.jersey.config.property.packages</param-name>
-                        <param-value>com.ticCore.restServices, org.glassfish.jersey.media.sse</param-value>
-                </init-param>
-
-        </servlet>
-
-        <servlet-mapping>
-                <servlet-name>t3Rest</servlet-name>
-                <url-pattern>/webServices/*</url-pattern>
-        </servlet-mapping>
--->
 
         <!-- Tell the server to use form-based authentication. -->
         <login-config>

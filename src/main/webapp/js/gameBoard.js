@@ -1,4 +1,4 @@
-var server= "http://192.168.2.8:8080";
+var server= "http://172.19.31.60:8080";
 var connectionMessage = null;
 var playerX = null;
 var playerO = null;

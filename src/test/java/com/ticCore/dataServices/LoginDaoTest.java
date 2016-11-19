@@ -36,8 +36,8 @@ public class LoginDaoTest {
     @After
     public void tearDown() throws Exception {
         final Statement stmt = conn.createStatement();
-        String insertQuery = "DELETE FROM Players WHERE  email ='"+ TEST_EMAIL +"'";
-        final boolean inserted = stmt.execute(insertQuery);
+        String deleteQuery = "DELETE FROM Players WHERE  email ='"+ TEST_EMAIL +"'";
+        stmt.execute(deleteQuery);
         stmt.close();
         conn.close();
 
@@ -50,6 +50,7 @@ public class LoginDaoTest {
         final Statement stmt = conn.createStatement();
         String insertQuery = "INSERT INTO Players (first_name, email, password) VALUES ('"+TEST_FNAME+"','" +TEST_EMAIL +"','"+TEST_PASSWORD+"')";
 
+
         final boolean inserted = stmt.execute(insertQuery);
         HashMap<String, Object> criterions = new HashMap<String, Object>();
         HashMap<String, Object> emailCriteria = new HashMap<String, Object>();
@@ -61,17 +62,6 @@ public class LoginDaoTest {
         assertEquals("Did not fetch exactly one login info", 1, loginInfo.size());
         assertEquals("Wrong login info fetched", TEST_EMAIL, loginInfo.get(0).getEmail());
 
-       /*
-        final Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        final Transaction transaction = session.beginTransaction();
-
-        final Player newPlayer = new Player();
-        newPlayer.setEmail(TEST_FNAME);
-        newPlayer.setEmail(TEST_EMAIL);
-        newPlayer.setEmail(TEST_PASSWORD);
-
-        session.save(newPlayer);
-        transaction.commit();*/
 
 
     }

@@ -23,6 +23,7 @@
         <!-- List the annotated entity class/es -->
         <mapping class="com.ticCore.beans.Login"/>
         <mapping class="com.ticCore.beans.Player"/>
+        <mapping class="com.ticCore.beans.GameRecord"/>
 
     </session-factory>
 

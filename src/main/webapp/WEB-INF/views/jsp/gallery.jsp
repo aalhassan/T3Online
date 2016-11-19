@@ -5,7 +5,7 @@
 					<div class="item">
 					  <div class="header1">
 					  
-					  <img src="images/top.jpg" alt="" title="" />
+					  <img src="images/tictactoe.jpg" class="gallery_imgs" alt="" title="" />
 					  					
 					</div> 
            
@@ -13,7 +13,7 @@
 					<div class="item">
 					    <div class="header2">
 						
-						   <img src="images/top2.jpg" alt="" title="" />
+						   <img src="images/chess.jpg" class="gallery_imgs" alt="" title="" />
 	
 						
 						</div>						
@@ -21,7 +21,7 @@
 					<div class="item">
 					    <div class="header3">
 						
-						   <img src="images/top3.jpg" alt="" title="" />
+						   <img src="images/cah.jpg" class="gallery_imgs" alt="" title="" />
 						
 						</div>						
 					</div> <!-- item -->
@@ -29,7 +29,7 @@
 					<div class="item">
 					    <div class="header4">
 						
-						   <img src="images/top4.jpg" alt="" title="" />
+						   <img src="images/backgammon.jpg" class="gallery_imgs" alt="" title="" />
 						
 						</div>						
 					</div> <!-- item -->											

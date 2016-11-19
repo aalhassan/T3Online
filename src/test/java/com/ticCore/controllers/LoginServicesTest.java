@@ -33,7 +33,7 @@ public class LoginServicesTest {
         request.setParameter("password", "gw");
         loginServices.login(request);
 
-        assertEquals("Session LoggedIn attribute Failed ", "Successful", MainController.getSessVal(session,"loggedIn"));
+        assertEquals("Session LoggedIn attribute Failed ",true,  MainController.getSessVal(session,"loggedIn"));
         assertEquals("Username value failed","realmej@hotmail.com", session.getAttribute("logged_in_email"));
         assertNull("RequestErrors is to be null",  (HashMap<String,String>) request.getAttribute("errors"));
 

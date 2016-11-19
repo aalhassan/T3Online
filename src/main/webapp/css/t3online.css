@@ -37,17 +37,18 @@ Written by Mej for Enterprise project
     font-weight: bold;
 }
 
-.logout_link
+#logout_link
 {
-    padding:10px;
+    padding-left:10px;
+    color: #191E1F;
+
 }
 
-/*
-#logged_in_message {
-    display:none;
-}
-*/
 
+#login_button {
+    margin-right:0px;
+    text-align: right;
+}
 .boardRow {
     color:black;
 }
@@ -90,7 +91,10 @@ Written by Mej for Enterprise project
     border-bottom-right-radius:20px;
 }
 
-
+.gallery_imgs {
+    width: 780px;
+    height: 273px;
+}
 
 
 

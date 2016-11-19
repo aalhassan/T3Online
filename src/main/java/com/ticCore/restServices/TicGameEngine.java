@@ -1,6 +1,9 @@
 package com.ticCore.restServices;
 
+import com.ticCore.beans.GameRecord;
 import com.ticCore.beans.TicState;
+import com.ticCore.dataServices.BaseDao;
+import com.ticCore.dataServices.GameRecordsDao;
 import org.glassfish.jersey.client.ClientConfig;
 
 import javax.print.attribute.standard.Media;
@@ -20,12 +23,17 @@ public class TicGameEngine  implements  GameEngine {
     private boolean gameInProgress;  // True while a game is being played;
     private static final String WAIT_MESSAGE = "Connected, waiting for second player...";
     private static final String CONNECTED_MESSAGE = "Game in progress... You are playing ";
+    private static final String TIE = "Tie";
+    private static final String WON = "Won";
+    private static final String LOST = "Lost";
     public int updatesSent;
     public final TicBroadCaster TIC_BROADCASTER = new TicBroadCaster(this);
     private GameServer gameServer;
+    private BaseDao gameRecordsDao ;
 
 
     public TicGameEngine(String gameSession) {
+        gameRecordsDao = new GameRecordsDao();
         ticState = new TicState();
         ticState.setGameSession(gameSession);
     }
@@ -35,13 +43,6 @@ public class TicGameEngine  implements  GameEngine {
         this.gameServer = gameServer;
     }
 
-    public TicState getTicState() {
-        return ticState;
-    }
-
-    public String getGameSession() {
-        return ticState.getGameSession();
-    }
 
 
     public void setPlayerPlayingX(String playerPlayingX) {
@@ -102,12 +103,15 @@ public class TicGameEngine  implements  GameEngine {
                         'X' : 'O'; // Make the move.
             ticState.setBoard(board);
             if (winner()) { // CurrentPlayer has won.
+
                 gameInProgress = false;
                 ticState.setWinner(ticState.getCurrentPlayer());
+                saveRecord(false);
             }
             else if (tie()) { // The board is full but there is no winner; game ends in a tie.
                 gameInProgress = false;
                 ticState.setGameEndedInTie(true);
+                saveRecord(true);
             }
             else {  // It's the other player's turn now.
                 String currentPlayer = ticState.getCurrentPlayer();
@@ -118,6 +122,25 @@ public class TicGameEngine  implements  GameEngine {
         sendGameState();
 
 
+    }
+
+    /**Persists records of this game after a win, tie or loss
+     * @param isTie if game ended in a tie
+     */
+    private void saveRecord(boolean isTie) {
+        if (isTie) {
+            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingX(), TIE, ticState.getPlayerPlayingO()));
+            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingO(), TIE, ticState.getPlayerPlayingX()));
+        }
+        else if (ticState.getPlayerPlayingX().equals(ticState.getWinner()))
+        {
+            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingX(), WON, ticState.getPlayerPlayingO()));
+            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingO(), LOST, ticState.getPlayerPlayingX()));
+        }
+        else {
+            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingX(), LOST, ticState.getPlayerPlayingO()));
+            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingO(), WON, ticState.getPlayerPlayingX()));
+        }
     }
 
     /**
@@ -207,17 +230,17 @@ public class TicGameEngine  implements  GameEngine {
     public void playerDisconnected(String playerId) {
         String winnerId = playerId.equals(ticState.getPlayerPlayingX())? ticState.getPlayerPlayingX():
                     ticState.getPlayerPlayingO();
-        endGame(winnerId,playerId);
+        endGame(winnerId);
     }
 
     /** Ends game engine
      * @param winnerId id of winner
-     * @param loserId id of loser
      */
 
-    private void endGame(String winnerId, String loserId) {
+    private void endGame(String winnerId) {
         ticState.setWinner(winnerId);
         gameInProgress = false;
+        saveRecord(false);
         sendGameState();
     }
 
