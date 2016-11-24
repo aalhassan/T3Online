@@ -21,13 +21,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 @Singleton
-@Path("/moves")
+@Path("moves")
 public class GameServer {
     private Map<String, GameEngine> currentGames = new HashMap<String, GameEngine>();
     private AtomicInteger connectionIdx = new AtomicInteger(0);
     private static final String GAME_SESSION = "GameSession";
 
-    @Path("/newGame")
+    @Path("newGame")
     @GET
     @Produces(SseFeature.SERVER_SENT_EVENTS)
     public EventOutput registerForNewGame(@Context HttpServletRequest request) {
@@ -40,7 +40,7 @@ public class GameServer {
         return eventOutput;
     }
 
-    @Path("/{gameSession}/{inputs}")
+    @Path("{gameSession}/{inputs}")
     @POST
     public void messageReceived (@PathParam("gameSession") String gameSession, @PathParam("inputs") String inputs,
             @Context HttpServletRequest request) {
@@ -57,7 +57,7 @@ public class GameServer {
 
     }
 
-    @Path("/broadcast/{gameSession}")
+    @Path("broadcast/{gameSession}")
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces (MediaType.APPLICATION_XML)

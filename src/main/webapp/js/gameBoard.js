@@ -1,4 +1,4 @@
-var server= "http://172.19.31.60:8080";
+
 var connectionMessage = null;
 var playerX = null;
 var playerO = null;
@@ -25,7 +25,7 @@ $(document).ready(function (){
 
 	$("#startGame").bind("click",function(e) {
         initInterface();
-		var uri = server+"/gameServer/moves/newGame";
+		var uri = "gameServer/moves/newGame";
 		if(typeof(EventSource) !== "undefined") {
 			var source = new EventSource(uri);
 			source.onmessage = function(event){
@@ -44,7 +44,7 @@ $(document).ready(function (){
     $(".cell").bind("click",function(e) {
         var cellClicked = $(this).attr("id");
 
-        var uri = server+"/gameServer/moves/"+gameSession+"/"+cellClicked;
+        var uri = "gameServer/moves/"+gameSession+"/"+cellClicked;
         sendMessage(uri);
     });
 });
