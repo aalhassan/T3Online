@@ -22,12 +22,3 @@ public class SSEAppService extends Application {
     }
 
 }
-
-/*
-@ApplicationPath("webServices")
-public class SSEAppService extends ResourceConfig {
-    public SSEAppService() {
-        packages("com.ticCore.restServices");
-    }
-}
-*/

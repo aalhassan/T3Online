@@ -21,7 +21,7 @@ import java.util.Map;
 
 
 /** Responsible for handling login/logout requests
- * Created by student on 9/5/16.
+ * Created by Mej on 9/5/16.
  */
 @ Controller
 public class LoginServices {

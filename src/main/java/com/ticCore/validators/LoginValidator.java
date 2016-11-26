@@ -3,11 +3,10 @@ package com.ticCore.validators;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-/**
+/**Simple validator for login credentials
  * Created by student on 9/19/16.
  */
 public class LoginValidator implements RawValidator {
-
 
     public <T> Map<String,String> validate(T subject) {
         HttpServletRequest request = (HttpServletRequest) subject;

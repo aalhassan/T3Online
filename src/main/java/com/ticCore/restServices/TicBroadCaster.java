@@ -22,10 +22,16 @@ public class TicBroadCaster extends SseBroadcaster {
     public TicBroadCaster() {
     }
 
+    /**Takes a game engine and becomes boradcaster for the game engine
+     * @param ticGameEngine Engine for which to broadcast for
+     */
     public TicBroadCaster(TicGameEngine ticGameEngine) {
         this.ticGameEngine = ticGameEngine;
     }
 
+    /**Handles the events involving midgame disconnection from players
+     * @param chunkedOutput SSE tunnel for hwich connection was closed
+     */
     @Override
     public void onClose(ChunkedOutput<OutboundEvent> chunkedOutput) {
         super.onClose(chunkedOutput);

@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
-/**Class to validate player registration
+/**Class to validate inputs for player password reset
  * Created by student on 9/30/16.
  */
 @Service

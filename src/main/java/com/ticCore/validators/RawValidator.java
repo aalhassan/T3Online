@@ -9,8 +9,8 @@ import java.util.Map;
 public interface RawValidator {
     /**Validates an object
      * @param subject object to validate
-     * @return List of all errors found mapped to error messages, or null if none
-     */
+     * @param  <T> Type of the object to validate
+     * @return All errors found mapped to error messages, or null if none     */
 
     public <T> Map<?,String>  validate(T subject);
 

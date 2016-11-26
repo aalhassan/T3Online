@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller ;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by student on 9/5/16.
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpSession;
 @ Controller
 public class MainController {
     private final Logger logger = Logger.getLogger(this.getClass());
+    private Map<String,String> errors;
+    public static final String AUTH_ERROR = "Authentication error, please login or create an account";
 
     /**
      * @return
@@ -76,14 +80,22 @@ public class MainController {
     }
 
     /**
-     * @param session
+     * @param request Current request
+     * @param session Session associated with current request
      * @return Redirect page
      */
     @RequestMapping(value="gameBoard")
-    public String gamePage(HttpSession session) {
-        if (session.getAttribute("logged_in_email") != null)
+    public String gamePage(HttpServletRequest request,  HttpSession session) {
+        if (session.getAttribute("logged_in_email") != null) {
+            logger.info("Game Page Accesses successfully");
         return "gamePage";
+
+        }
         else {
+            logger.info("Game Page Access failed");
+            errors = new HashMap<String, String>();
+            errors.put("auth", AUTH_ERROR);
+            request.setAttribute("errors", errors);
             return "LoginError";
         }
     }

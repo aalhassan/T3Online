@@ -32,17 +32,23 @@ public class TicGameEngine  implements  GameEngine {
     private BaseDao gameRecordsDao ;
 
 
+    /**
+     * @param gameSession Session to which this game engine belongs
+     */
     public TicGameEngine(String gameSession) {
         gameRecordsDao = new GameRecordsDao();
         ticState = new TicState();
         ticState.setGameSession(gameSession);
     }
 
+    /**
+     * @param gameSession Session to which this game engine belongs
+     * @param gameServer Game Server where this game engine is used
+     */
     public TicGameEngine(String gameSession, GameServer gameServer) {
         this(gameSession);
         this.gameServer = gameServer;
     }
-
 
 
     public void setPlayerPlayingX(String playerPlayingX) {
