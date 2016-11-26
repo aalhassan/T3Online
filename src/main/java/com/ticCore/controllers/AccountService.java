@@ -22,12 +22,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.*;
 
 
-/**
+/** A spring controller responsible for handling requests for account services
+ * like registration,
  * Created by student on 9/24/16.
  */
 
 @Controller
-//@RequestMapping (value="accountService")
 public class AccountService {
     private final Logger logger = Logger.getLogger(this.getClass());
     private static final String REDIRECT_PREFIX = "redirect:/";
@@ -55,11 +55,10 @@ public class AccountService {
 
     /**
      * @param player player entity representing the player to register
+     * @param bindingResult Provides errors and validation results if any
      * @return redirect view name
      */
     @RequestMapping (value="savePlayer", method= RequestMethod.POST)
-
-
     public String register(@ModelAttribute Player player, BindingResult bindingResult) {
         String redirectPage = "index";
         playersValidator.validate(player,bindingResult);
@@ -105,6 +104,7 @@ public class AccountService {
     }
 
     /** Updates an existing if requested from browser
+     * @param player player entity representing the player to update
      * @param bindingResult holds results for entity validation
      * @return redirect page
      */

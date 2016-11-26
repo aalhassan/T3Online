@@ -24,7 +24,7 @@ public class GameRecords {
     @Autowired
     private BaseDao gameRecordsDao;
     /**
-     * @param request player's current session
+     * @param request player's current request
      * @return page to navigate to
      */
     @RequestMapping(value="myGames")

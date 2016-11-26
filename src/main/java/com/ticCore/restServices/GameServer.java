@@ -16,7 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
+/**Main Game Server. A singleton that handles request to start new game, join an existing game<br/>
+ *  and server-client communication
  * Created by student on 10/8/16.
  */
 
@@ -27,6 +28,10 @@ public class GameServer {
     private AtomicInteger connectionIdx = new AtomicInteger(0);
     private static final String GAME_SESSION = "GameSession";
 
+    /** Handles request to start a new game i.e when player clicks start new game
+     * @param request Current request of player from context of the rest service
+     * @return Chunked output object that client usess to recieve the SSE
+     */
     @Path("newGame")
     @GET
     @Produces(SseFeature.SERVER_SENT_EVENTS)
@@ -40,6 +45,11 @@ public class GameServer {
         return eventOutput;
     }
 
+    /**
+     * @param gameSession Represents the current game for which message/inputs were recieved
+     * @param inputs player inputs
+     * @param request Current request of player from context of the rest service
+     */
     @Path("{gameSession}/{inputs}")
     @POST
     public void messageReceived (@PathParam("gameSession") String gameSession, @PathParam("inputs") String inputs,
@@ -57,6 +67,11 @@ public class GameServer {
 
     }
 
+    /**Broascasts game state to players at the request of a game engine
+     * @param gameSession Session of current game for which broadcast is being made
+     * @param message message to be broadcasted
+     * @return Status of the broadcast
+     */
     @Path("broadcast/{gameSession}")
     @POST
     @Consumes(MediaType.APPLICATION_XML)
@@ -73,6 +88,10 @@ public class GameServer {
         return "Message '" + message + "' has been broadcast.";
     }
 
+    /**Does player matchmaking, odd connected players host, even connected joins
+     * @param playerId Id of player to match
+     * @param eventOutput each player's SSE tunnel object
+     */
     private void registerPlayer (String playerId, EventOutput eventOutput) {
         int curPlayerIdx = connectionIdx.incrementAndGet();
         String gameSession;

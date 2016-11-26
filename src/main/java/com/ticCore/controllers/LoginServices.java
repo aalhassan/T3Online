@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 
-/**
+/** Responsible for handling login/logout requests
  * Created by student on 9/5/16.
  */
 @ Controller
@@ -39,7 +39,7 @@ public class LoginServices {
         this.rawValidator = rawValidator;
     }
 
-    /**
+    /**Request handler for player login
      * @param request Request from browser
      * @return redirect page
      */
@@ -68,7 +68,7 @@ public class LoginServices {
 
     }
 
-    /** Verifies login from request attributes
+    /** Logs out players already in session
      *@param session current session
      *@return A list of login details, expected to be of size 1 for valid logins     */
 
@@ -79,7 +79,10 @@ public class LoginServices {
     }
 
 
-
+    /**Verifies player credentials using the Dao
+     * @param request Player's current request
+     * @return
+     */
     private  List<Login>  verifyLogin (HttpServletRequest request) {
 
         if (errors != null)
@@ -93,7 +96,5 @@ public class LoginServices {
         return   (ArrayList<Login>) dbService.getWithLimit(restrictions, 1);
 
     }
-
-
 
 }

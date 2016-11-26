@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
-/**
+/** Entity that encapsulates the state of a game
  * Created by student on 10/15/16.
  */
 @XmlRootElement

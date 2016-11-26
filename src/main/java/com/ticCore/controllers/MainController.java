@@ -19,11 +19,17 @@ import javax.servlet.http.HttpSession;
 public class MainController {
     private final Logger logger = Logger.getLogger(this.getClass());
 
+    /**
+     * @return
+     */
     @RequestMapping(value="")
     public String home () {
         return "index";
     }
 
+    /** Handler for home page
+     * @return Redirect page
+     */
     @RequestMapping(value="home")
     public String homeNav () {
         return "index";
@@ -35,27 +41,44 @@ public class MainController {
     }
 
 
+    /** Handler for password reset
+     * @param model player bean to be intitialized and passed to browser
+     * @return  Redirect page
+     */
     @RequestMapping(value="resetPassword")
     public String resetPassword (Model model) {
         model.addAttribute("player", new Player());
         return "resetPassword";
     }
 
+    /**
+     * @return Redirect page
+     */
     @RequestMapping(value="adminLogin")
     public String adminLogin () {
         return "adminLogin";
     }
 
+    /**
+     * @return Redirect page
+     */
     @RequestMapping(value="adminError")
     public String adminError() {
         return "adminError";
     }
 
+    /**
+     * @return
+     */
     @RequestMapping(value="sseClient")
     public String sseClient() {
         return "sseClient";
     }
 
+    /**
+     * @param session
+     * @return Redirect page
+     */
     @RequestMapping(value="gameBoard")
     public String gamePage(HttpSession session) {
         if (session.getAttribute("logged_in_email") != null)
