@@ -51,10 +51,8 @@ public class LoginDaoTest {
         String insertQuery = "INSERT INTO Players (first_name, email, password) VALUES ('"+TEST_FNAME+"','" +TEST_EMAIL +"','"+TEST_PASSWORD+"')";
 
 
-        final boolean inserted = stmt.execute(insertQuery);
+        stmt.execute(insertQuery);
         HashMap<String, Object> criterions = new HashMap<String, Object>();
-        HashMap<String, Object> emailCriteria = new HashMap<String, Object>();
-        HashMap<String, Object> passCriteria = new HashMap<String, Object>();
 
         criterions.put("email", TEST_EMAIL);
         criterions.put("password", TEST_PASSWORD);

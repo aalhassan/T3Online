@@ -12,7 +12,7 @@
             </c:forEach>
         </table>
     </p>
-    <p> Please sign in from <a href="home">home page</a>a> or <a href="register"> create a new account</a>
+    <p> Please sign in from <a href="home">home page</a> or <a href="register"> create a new account</a>
     <!--End of included content -->
 </div>  <!--End of header Div-->
 <div class="top_bot"></div>

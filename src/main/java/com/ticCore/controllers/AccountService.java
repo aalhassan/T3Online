@@ -44,6 +44,11 @@ public class AccountService {
     private Validator passResetValidator;
 
     //For testing purposes only
+    public void setPassResetValidator(Validator passResetValidator) {
+        this.passResetValidator = passResetValidator;
+    }
+
+    //For testing purposes only
     public void setPlayersValidator(Validator playersValidator) {
         this.playersValidator = playersValidator;
     }

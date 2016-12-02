@@ -21,7 +21,12 @@ import java.util.Map;
 public class MainController {
     private final Logger logger = Logger.getLogger(this.getClass());
     private Map<String,String> errors;
-    public static final String AUTH_ERROR = "Authentication error, please login or create an account";
+    public static final String AUTH_ERROR = "Authentication error while getting Session TempDir";
+    public static final String LOGGED_IN_EMAIL = "logged_in_email";
+    public static final String LOGGED_IN = "loggedIn";
+    public static final String FOUND_RECORD= "foundRecords";
+    public static final String GAME_RECORDS = "gameRecords";
+
 
     /**
      * @return
@@ -38,12 +43,6 @@ public class MainController {
     public String homeNav () {
         return "index";
     }
-
-    @RequestMapping(value="asyncReq")
-    public String asyncReq () {
-        return "asyncReq";
-    }
-
 
     /** Handler for password reset
      * @param model player bean to be intitialized and passed to browser
@@ -72,14 +71,6 @@ public class MainController {
     }
 
     /**
-     * @return
-     */
-    @RequestMapping(value="sseClient")
-    public String sseClient() {
-        return "sseClient";
-    }
-
-    /**
      * @param request Current request
      * @param session Session associated with current request
      * @return Redirect page
@@ -99,12 +90,6 @@ public class MainController {
             return "LoginError";
         }
     }
-
-
-
-
-
-
 
     /** Gets value of a request attribute without need for casting
      *@param request current request

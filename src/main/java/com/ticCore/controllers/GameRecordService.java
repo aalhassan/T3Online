@@ -20,11 +20,16 @@ import java.util.Map;
  * Created by student on 11/18/16.
  */
 @Controller
-public class GameRecords {
+public class GameRecordService {
     @Autowired
     private BaseDao gameRecordsDao;
     private final Logger logger = Logger.getLogger(this.getClass());
     private Map<String,String> errors;
+
+    public void setGameRecordsDao(BaseDao gameRecordsDao) {
+        this.gameRecordsDao = gameRecordsDao;
+    }
+
     /**
      * @param request player's current request
      * @return page to navigateto

@@ -17,14 +17,15 @@ import static org.junit.Assert.*;
 /**
  * Created by student on 11/18/16.
  */
-public class GameRecordsDaoTest {
+public class GameRecordServiceDaoTest {
     private final Logger logger = Logger.getLogger(this.getClass());
 
     private static final String TEST_PLAYER = "testPlayer@mail.com";
     private static final String TEST_OPPONENT = "testOpponent@mail.com";
     private static final String TIE = "Tie";
     private static final String WON = "Won";
-    private static final String LOST = "Lost";    private Connection conn;
+    private static final String LOST = "Lost";
+    private Connection conn;
 
     private BaseDao gameRecordsDao;
 
@@ -37,15 +38,6 @@ public class GameRecordsDaoTest {
                 "student");
     }
 
-    @After
-    public void tearDown() throws Exception {
-        final Statement stmt = conn.createStatement();
-        String deleteQuery = "DELETE  FROM game_records WHERE  player_id = '"+ TEST_PLAYER +"'";
-        stmt.execute(deleteQuery);
-        stmt.close();
-        conn.close();
-
-    }
 
     @Test
     public void testRecordCreate() throws SQLException {
@@ -72,6 +64,7 @@ public class GameRecordsDaoTest {
         stmt.execute(deleteQuery);
         GameRecord gameRecord = new GameRecord(TEST_PLAYER, TIE, TEST_OPPONENT);
         gameRecordsDao.create(gameRecord);
+
         HashMap<String, Object> criterions = new HashMap<String, Object>();
         criterions.put("playerId", TEST_PLAYER);
         criterions.put("opponentId", TEST_OPPONENT);
@@ -83,5 +76,15 @@ public class GameRecordsDaoTest {
         assertEquals("Did not fetch right record", TEST_OPPONENT, recordsFetched.get(0).getOpponentId());
 
     }
+
+    @After
+    public void tearDown() throws Exception {
+        final Statement stmt = conn.createStatement();
+        String deleteQuery = "DELETE  FROM game_records WHERE  player_id = '"+ TEST_PLAYER +"'";
+        stmt.execute(deleteQuery);
+        stmt.close();
+        conn.close();
+    }
+
 
 }

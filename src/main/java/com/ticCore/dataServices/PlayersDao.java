@@ -47,7 +47,7 @@ public class PlayersDao extends BaseDao {
 
     }
 
-    /**This particular implementation modifies a players password gonly
+    /**This particular implementation modifies a players password only
      * @param entity entity whose record will be updated
      * @throws HibernateException
      */

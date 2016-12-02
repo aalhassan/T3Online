@@ -50,6 +50,9 @@ public class TicGameEngine  implements  GameEngine {
         this.gameServer = gameServer;
     }
 
+    public TicState getTicState() {
+        return ticState;
+    }
 
     public void setPlayerPlayingX(String playerPlayingX) {
         if (ticState.getPlayerPlayingX() != null || playerPlayingX.equals(ticState.getPlayerPlayingO()) )
@@ -224,11 +227,8 @@ public class TicGameEngine  implements  GameEngine {
     }
 
     public  void sendGameState() {
-       /* Client client = ClientBuilder.newBuilder()
-                .register(MessageBodyReaderWriter.class).build();
-
-        WebTarget gameServer = client.target("http://localhost:8080/gameServer/broadcast/"+ticState.getGameSession());
-        Response response = gameServer.request(MediaType.TEXT_PLAIN).post(Entity.entity(ticState,MediaType.APPLICATION_XML_TYPE));*/
+        if (gameServer == null)
+            return;
         gameServer.broadcastMessage(ticState.getGameSession(), ticState);
         updatesSent++;
     }

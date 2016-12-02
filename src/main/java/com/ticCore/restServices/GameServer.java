@@ -28,6 +28,14 @@ public class GameServer {
     private AtomicInteger connectionIdx = new AtomicInteger(0);
     private static final String GAME_SESSION = "GameSession";
 
+    public Map<String, GameEngine> getCurrentGames() {
+        return currentGames;
+    }
+
+    public AtomicInteger getConnectionIdx() {
+        return connectionIdx;
+    }
+
     /** Handles request to start a new game i.e when player clicks start new game
      * @param request Current request of player from context of the rest service
      * @return Chunked output object that client usess to recieve the SSE

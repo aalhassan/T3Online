@@ -14,7 +14,7 @@ import java.util.Map;
 
 
 /**
- * DB Services know how to communicate with DB, fetch, create db objects uses a CrudHelper
+ * DB Services know how to communicate with DB, fetch, create db objects
  * for common CRUD operations
  * @author  Mej
  * @since 09/2016

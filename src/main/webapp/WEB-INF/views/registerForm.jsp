@@ -1,4 +1,4 @@
-<% request.setAttribute("pageTitle", "Registeration Page"); %>
+<% request.setAttribute("pageTitle", "Registration Page"); %>
 <%@include file="jsp/head.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
