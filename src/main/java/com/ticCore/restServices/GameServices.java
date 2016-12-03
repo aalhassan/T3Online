@@ -17,7 +17,6 @@ public class GameServices extends Application {
         classes.add(SseFeature.class);
         classes.add(GameServer.class);
         classes.add(MessageBodyReaderWriter.class);
-
         return classes;
     }
 

@@ -13,6 +13,6 @@
 |11/02/16-11/08/16|Wrote more tests. troubleshoot of client side application(Ajax, Javascript and JSPs| 5||
 |11/09/16-11/15/16|Started work on migration to Digital Ocean. Did some project clean up| 5||
 |11/16/16-11/22/16|Completed 90% of Digital Ocean migration, Wrote game record feature| 8|| 
-|11/23/16-11/29/16|Plan to write more tests, JavaDoc and complete Digital Ocean migration | ?|| 
-|11/30/16-12/6/16|Complete LeaderBoard page| ?||
+|11/23/16-11/29/16|Plan to write more tests, JavaDoc and complete Digital Ocean migration | 2|| 
+|11/30/16-12/6/16|Wrote more test, cleaned up project and completed digital ocean migration| ?||
 |12/7/16-12/13/16|Presentation| ?|| 

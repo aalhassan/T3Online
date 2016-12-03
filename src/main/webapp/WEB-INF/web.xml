@@ -23,8 +23,8 @@
         <login-config>
                 <auth-method>FORM</auth-method>
                 <form-login-config>
-                        <form-login-page>adminLogin</form-login-page>
-                        <form-error-page>adminError</form-error-page>
+                        <form-login-page>/adminLogin</form-login-page>
+                        <form-error-page>/adminError</form-error-page>
                 </form-login-config>
         </login-config>
 
@@ -33,7 +33,7 @@
         <security-constraint>
                 <web-resource-collection>
                         <web-resource-name>PassWord Reset</web-resource-name>
-                        <url-pattern>resetPassword</url-pattern>
+                        <url-pattern>/resetPassword</url-pattern>
                 </web-resource-collection>
                 <auth-constraint>
                         <role-name>Admin</role-name>
