@@ -5,7 +5,7 @@
             <c:import url="jsp/top_nav.jsp" />   
             <!--Beginning of included content -->
                 <h1 class="question">New Player Registration</h1>
-                    <form:form commandName="player" action="/savePlayer" method="post">
+                    <form:form commandName="player" action="savePlayer" method="post">
                     <fieldset>
                         <legend>Enter all  info below</legend>
                         <table>

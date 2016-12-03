@@ -5,7 +5,7 @@
             <c:import url="jsp/top_nav.jsp" />   
             <!--Beginning of included content -->
                 <h1 class="question">Reset Player Password</h1>
-                    <form:form commandName="player" action="/updateUser" method="post">
+                    <form:form commandName="player" action="updateUser" method="post">
                     <fieldset>
                         <legend>Enter email and new password below</legend>
                         <table>

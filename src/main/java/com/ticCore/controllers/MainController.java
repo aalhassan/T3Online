@@ -25,7 +25,16 @@ public class MainController {
     public static final String LOGGED_IN_EMAIL = "logged_in_email";
     public static final String LOGGED_IN = "loggedIn";
     public static final String FOUND_RECORD= "foundRecords";
+    public static final String HOME_PAGE = "index";
+    public static final String PASS_RESET_PAGE = "resetPassword";
+    public static final String ADMIN_LOGIN_PAGE= "adminLogin";
+    public static final String LOGIN_ERROR_PAGE = "LoginError";
+    public static final String ADMIN_ERROR_PAGE = "adminError";
+    public static final String GAME_BOARD_PAGE= "gamePage";
+    public static final String GAME_RECORDS_PAGE= "myGames";
+    public static final String REGISTER_FORM_PAGE= "registerForm";
     public static final String GAME_RECORDS = "gameRecords";
+
 
 
     /**
@@ -33,7 +42,7 @@ public class MainController {
      */
     @RequestMapping(value="")
     public String home () {
-        return "index";
+        return HOME_PAGE;
     }
 
     /** Handler for home page
@@ -41,7 +50,7 @@ public class MainController {
      */
     @RequestMapping(value="home")
     public String homeNav () {
-        return "index";
+        return HOME_PAGE;
     }
 
     /** Handler for password reset
@@ -51,7 +60,7 @@ public class MainController {
     @RequestMapping(value="resetPassword")
     public String resetPassword (Model model) {
         model.addAttribute("player", new Player());
-        return "resetPassword";
+        return  PASS_RESET_PAGE;
     }
 
     /**
@@ -59,7 +68,7 @@ public class MainController {
      */
     @RequestMapping(value="adminLogin")
     public String adminLogin () {
-        return "adminLogin";
+        return ADMIN_LOGIN_PAGE;
     }
 
     /**
@@ -67,7 +76,7 @@ public class MainController {
      */
     @RequestMapping(value="adminError")
     public String adminError() {
-        return "adminError";
+        return ADMIN_ERROR_PAGE;
     }
 
     /**
@@ -79,7 +88,7 @@ public class MainController {
     public String gamePage(HttpServletRequest request,  HttpSession session) {
         if (session.getAttribute("logged_in_email") != null) {
             logger.info("Game Page Accesses successfully");
-        return "gamePage";
+        return GAME_BOARD_PAGE;
 
         }
         else {
@@ -87,7 +96,7 @@ public class MainController {
             errors = new HashMap<String, String>();
             errors.put("auth", AUTH_ERROR);
             request.setAttribute("errors", errors);
-            return "LoginError";
+            return LOGIN_ERROR_PAGE;
         }
     }
 

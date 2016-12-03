@@ -1,6 +1,7 @@
 package com.ticCore.restServices;
 
 import com.ticCore.beans.TicState;
+import org.apache.log4j.Logger;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -26,6 +27,7 @@ import java.lang.reflect.*;
 @Provider
 @Produces({MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN})
 public class MessageBodyReaderWriter implements MessageBodyReader<TicState>, MessageBodyWriter<TicState> {
+    private Logger logger = Logger.getLogger(this.getClass());
     public boolean isReadable(Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType) {
         return true;
     }
@@ -40,7 +42,7 @@ public class MessageBodyReaderWriter implements MessageBodyReader<TicState>, Mes
             return (TicState) unmarshaller.unmarshal(inputStream); //return object unmarshalled from from inputstream(XML)
 
         } catch (JAXBException e) {
-            e.printStackTrace();
+           logger.trace(e);
         }
         return null;
     }
@@ -65,7 +67,7 @@ public class MessageBodyReaderWriter implements MessageBodyReader<TicState>, Mes
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.trace(e);
         }
     }
 

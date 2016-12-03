@@ -7,6 +7,7 @@ import com.ticCore.validators.LoginValidator;
 import com.ticCore.validators.RawValidator;
 import org.apache.log4j.*;
 
+import org.apache.log4j.chainsaw.Main;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -55,12 +56,12 @@ public class LoginServices {
 
         if (loginInfo != null && loginInfo.size() == 1 ) {
            logger.info("Login was successful");
-           request.getSession().setAttribute("loggedIn", true);
-           request.getSession().setAttribute("logged_in_email", loginInfo.get(0).getEmail());
+           request.getSession().setAttribute(MainController.LOGGED_IN, true);
+           request.getSession().setAttribute(MainController.LOGGED_IN_EMAIL, loginInfo.get(0).getEmail());
         } else if (errors == null) {
            errors = new HashMap<String,String>();
            errors.put("auth", AUTH_FAILED);
-            redirectPage = "LoginError";
+            redirectPage = MainController.LOGIN_ERROR_PAGE;
         }
 
         request.setAttribute("errors", errors);
@@ -75,7 +76,7 @@ public class LoginServices {
     @RequestMapping(value="loggedOut")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "index";
+        return MainController.HOME_PAGE;
     }
 
 

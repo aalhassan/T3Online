@@ -65,7 +65,7 @@ public class AccountService {
      */
     @RequestMapping (value="savePlayer", method= RequestMethod.POST)
     public String register(@ModelAttribute Player player, BindingResult bindingResult) {
-        String redirectPage = "index";
+        String redirectPage = MainController.HOME_PAGE;
         playersValidator.validate(player,bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -74,14 +74,14 @@ public class AccountService {
 
                     + fieldError.getField());
 
-            redirectPage = "registerForm";
+            redirectPage = MainController.REGISTER_FORM_PAGE;
         } else {
 
             try {
                 playersDao.create(player);
             } catch (HibernateException ex) {
                 logger.info(ex.getMessage());
-                redirectPage = "registerForm";
+                redirectPage = MainController.REGISTER_FORM_PAGE;
             }
         }
 
@@ -94,7 +94,7 @@ public class AccountService {
     @RequestMapping(value = "register")
     public String registerForm(Model model) {
         model.addAttribute("player", new Player());
-        return "registerForm";
+        return MainController.REGISTER_FORM_PAGE;
     }
 
     /**
@@ -115,20 +115,20 @@ public class AccountService {
      */
     @RequestMapping (value="updateUser", method= RequestMethod.POST)
     public String update(@ModelAttribute Player player, BindingResult bindingResult) {
-        String redirectPage = "index";
+        String redirectPage = MainController.HOME_PAGE;
         passResetValidator.validate(player,bindingResult);
         if (bindingResult.hasErrors()) {
             FieldError fieldError = bindingResult.getFieldError();
             logger.info("Code:" + fieldError.getCode() + ", field:"
                     + fieldError.getField());
-            redirectPage = "resetPassword";
+            redirectPage = MainController.PASS_RESET_PAGE;
         }
         else {
             try {
                 playersDao.update(player);
             } catch (HibernateException ex) {
 
-                redirectPage = "resetPassword";
+                redirectPage = MainController.PASS_RESET_PAGE;
             }
 
         }

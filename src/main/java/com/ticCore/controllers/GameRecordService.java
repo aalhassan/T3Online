@@ -42,7 +42,7 @@ public class GameRecordService {
             errors = new HashMap<String, String>();
             errors.put("auth", MainController.AUTH_ERROR);
             request.setAttribute("errors", errors);
-            return "LoginError";
+            return MainController.LOGIN_ERROR_PAGE;
         }
 
         String playerId = MainController.getSessVal(session, "logged_in_email");
@@ -53,7 +53,7 @@ public class GameRecordService {
             request.setAttribute("foundRecords", true);
         logger.info("Found " + gameRecords.size() + " game records for player");
         request.setAttribute("gameRecords", gameRecords);
-        return "myGames";
+        return MainController.GAME_RECORDS_PAGE;
     }
 
 }
