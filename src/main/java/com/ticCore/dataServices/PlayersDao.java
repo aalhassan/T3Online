@@ -24,11 +24,12 @@ public class PlayersDao extends BaseDao {
 
     @Override
     public List<?> get(HashMap<String, Object> restrictions) throws HibernateException {
-
-        Criteria criteria = getSession().createCriteria(Player.class);
+        Session session = getSession();
+        Criteria criteria = session.createCriteria(Player.class);
             criteria.add(Restrictions.allEq(restrictions));
-
-        return criteria.list();
+        List<?> players = criteria.list();
+        closeSession(session);
+        return players;
     }
 
     @Override
@@ -37,13 +38,17 @@ public class PlayersDao extends BaseDao {
         final Transaction transaction = session.beginTransaction();
         Serializable id = session.save(entity);
         transaction.commit();
+        closeSession(session);
         return id;
     }
 
     @Override
     public List<?> getAll() throws HibernateException {
         Session session = getSession();
-        return session.createCriteria(Player.class).list();
+
+        List<?> players = session.createCriteria(Player.class).list();
+        closeSession(session);
+        return players;
 
     }
 
@@ -67,5 +72,6 @@ public class PlayersDao extends BaseDao {
 
         session.update(existingPlayer);
         transaction.commit();
+        closeSession(session);
     }
 }

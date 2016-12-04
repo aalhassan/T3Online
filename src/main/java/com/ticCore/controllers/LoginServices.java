@@ -8,6 +8,7 @@ import com.ticCore.validators.RawValidator;
 import org.apache.log4j.*;
 
 import org.apache.log4j.chainsaw.Main;
+import org.hibernate.HibernateException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,6 +27,7 @@ import java.util.Map;
  */
 @ Controller
 public class LoginServices {
+    private static final String SYSTEM_LOGIN_ERROR = "System could not verify login info. Please try agin later";
     private final Logger logger = Logger.getLogger(this.getClass());
     private BaseDao dbService;
     private RawValidator rawValidator;
@@ -35,7 +37,6 @@ public class LoginServices {
     public void setDbService(BaseDao dbService) {
         this.dbService = dbService;
     }
-
     public void setRawValidator(RawValidator rawValidator) {
         this.rawValidator = rawValidator;
     }
@@ -46,7 +47,7 @@ public class LoginServices {
      */
     @RequestMapping (value="loggedIn", method= RequestMethod.POST)
     public String login(HttpServletRequest request) {
-        String redirectPage = "index";
+        String redirectPage = MainController.HOME_PAGE;
         setDbService(new LoginDao());
         setRawValidator(new LoginValidator());
 
@@ -60,7 +61,10 @@ public class LoginServices {
            request.getSession().setAttribute(MainController.LOGGED_IN_EMAIL, loginInfo.get(0).getEmail());
         } else if (errors == null) {
            errors = new HashMap<String,String>();
-           errors.put("auth", AUTH_FAILED);
+           errors.put(MainController.AUTH_ERROR, AUTH_FAILED);
+            redirectPage = MainController.LOGIN_ERROR_PAGE;
+        } else {
+            errors.put(MainController.AUTH_ERROR, AUTH_FAILED);
             redirectPage = MainController.LOGIN_ERROR_PAGE;
         }
 
@@ -89,13 +93,17 @@ public class LoginServices {
         if (errors != null)
             return null;
 
+        List<Login> loginInfo = null;
         HashMap<String, Object> restrictions = new HashMap<String, Object>();
-
         restrictions.put("email", MainController.getReqParam(request, "email"));
         restrictions.put("password", MainController.getReqParam(request, "password"));
-
-        return   (ArrayList<Login>) dbService.getWithLimit(restrictions, 1);
-
+        try {
+        loginInfo = (ArrayList<Login>) dbService.getWithLimit(restrictions, 1);
+        } catch (HibernateException ex) {
+            errors = new HashMap<String, String>();
+            errors.put(MainController.SYSTEM_ERROR, SYSTEM_LOGIN_ERROR);
+        }finally {
+            return loginInfo;
+        }
     }
-
 }

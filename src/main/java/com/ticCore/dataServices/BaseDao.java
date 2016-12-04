@@ -1,5 +1,6 @@
 package com.ticCore.dataServices;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -23,7 +24,7 @@ public abstract class BaseDao {
 
     public static int FETCH_ALL = 0;
     public static String ALL_COLUMNS = null;
-
+    private Logger logger = Logger.getLogger(this.getClass());
 
     /**
      * Gets the hibernate session for perfroming DB transactions
@@ -92,6 +93,18 @@ public abstract class BaseDao {
 
     public <T> void  delete(T entity) throws HibernateException {
         getSession().delete(entity);
+    }
+
+    /**Closess a provided session
+     * @param session
+     */
+    protected void closeSession(Session session) {
+        try {
+            session.close();
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+        }
+
     }
 
 }

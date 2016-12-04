@@ -52,15 +52,13 @@ public class GameRecordServiceTest {
 
     @Test
     public void testGameRecordsFound() throws Exception {
-
-
-        String redirectPage =  gameRecordService.getGameRecords(request);
+        gameRecordService.getGameRecords(request);
         assertEquals("Records should exsist for player", true, request.getAttribute(MainController.FOUND_RECORD));
     }
 
     @Test
     public void testGameRecordsSize() throws Exception {
-        String redirectPage =  gameRecordService.getGameRecords(request);
+        gameRecordService.getGameRecords(request);
         List<GameRecord> gameRecords = (ArrayList<GameRecord>) request.getAttribute(MainController.GAME_RECORDS);
         assertEquals("There should be eaxactly one record for player", 1, gameRecords.size());
     }

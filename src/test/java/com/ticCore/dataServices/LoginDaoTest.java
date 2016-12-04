@@ -17,11 +17,10 @@ import static org.junit.Assert.*;
  */
 
 public class LoginDaoTest {
-    private static final String TEST_EMAIL = "testEmail@mail.com";
+    private static final String TEST_EMAIL = "testLogin@mail.com";
     private static final String TEST_PASSWORD = "testPass";
     private static final String TEST_FNAME = "testFirst";
     private Connection conn;
-
     private BaseDao loginDao;
 
     @Before
@@ -31,6 +30,7 @@ public class LoginDaoTest {
                 "jdbc:mysql://localhost:3306/TicGameTest",
                 "root",
                 "student");
+
     }
 
     @After
@@ -40,27 +40,18 @@ public class LoginDaoTest {
         stmt.execute(deleteQuery);
         stmt.close();
         conn.close();
-
     }
 
     @Test
     public void testLogin() throws SQLException {
-
-
         final Statement stmt = conn.createStatement();
         String insertQuery = "INSERT INTO Players (first_name, email, password) VALUES ('"+TEST_FNAME+"','" +TEST_EMAIL +"','"+TEST_PASSWORD+"')";
-
-
         stmt.execute(insertQuery);
         HashMap<String, Object> criterions = new HashMap<String, Object>();
-
         criterions.put("email", TEST_EMAIL);
         criterions.put("password", TEST_PASSWORD);
         List<Login> loginInfo =  (ArrayList<Login>) loginDao.getWithLimit(criterions,1) ;
-        assertEquals("Did not fetch exactly one login info", 1, loginInfo.size());
-        assertEquals("Wrong login info fetched", TEST_EMAIL, loginInfo.get(0).getEmail());
-
-
-
+            assertEquals("Did not fetch exactly one login info", 1, loginInfo.size());
+            assertEquals("Wrong login info fetched", TEST_EMAIL, loginInfo.get(0).getEmail());
     }
 }

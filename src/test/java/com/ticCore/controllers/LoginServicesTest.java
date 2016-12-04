@@ -39,7 +39,7 @@ public class LoginServicesTest {
         String deleteQuery = "DELETE FROM Players";
         stmt.execute(deleteQuery);
         String insertQuery = "INSERT INTO Players (first_name, email, password) VALUES ('"+TEST_FNAME+"','" +TEST_EMAIL +"','"+TEST_PASSWORD+"')";
-        stmt.executeUpdate(insertQuery);
+        stmt.execute(insertQuery);
     }
 
     @Test
@@ -94,12 +94,11 @@ public class LoginServicesTest {
         request.setRequestURI(LOGIN_PATH);
         request.setParameter("email", "realmej@hotmail.com");
         request.setParameter("password", "wrongPass");
-        MockHttpServletResponse response = new MockHttpServletResponse();
 
         loginServices.login(request);
 
         assertNull("Session LoggedIn attribute Failed ",  session.getAttribute("loggedIn"));
-        assertTrue("Errors should contain auth",  ((HashMap<String,String>) request.getAttribute("errors")).containsKey("auth"));
+        assertTrue("Errors should contain auth",  ((HashMap<String,String>) request.getAttribute("errors")).containsKey(MainController.AUTH_ERROR));
     }
 
     @After

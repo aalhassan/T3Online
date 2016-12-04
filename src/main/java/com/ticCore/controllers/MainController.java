@@ -34,6 +34,8 @@ public class MainController {
     public static final String GAME_RECORDS_PAGE= "myGames";
     public static final String REGISTER_FORM_PAGE= "registerForm";
     public static final String GAME_RECORDS = "gameRecords";
+    public static final String SYSTEM_ERROR = "System Error";
+    public static final String REG_SUCCESSFUL = "regSuccess";
 
 
 
@@ -125,6 +127,8 @@ public class MainController {
     }
 
 
+    public class REG_SUCCESSFUL {
+    }
 }
 
 

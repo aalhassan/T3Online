@@ -4,6 +4,7 @@ import com.ticCore.beans.GameRecord;
 import com.ticCore.beans.TicState;
 import com.ticCore.dataServices.BaseDao;
 import com.ticCore.dataServices.GameRecordsDao;
+import org.apache.log4j.Logger;
 import org.glassfish.jersey.client.ClientConfig;
 
 import javax.print.attribute.standard.Media;
@@ -30,6 +31,7 @@ public class TicGameEngine  implements  GameEngine {
     public final TicBroadCaster TIC_BROADCASTER = new TicBroadCaster(this);
     private GameServer gameServer;
     private BaseDao gameRecordsDao ;
+    private Logger logger = Logger.getLogger(this.getClass());
 
 
     /**
@@ -137,18 +139,20 @@ public class TicGameEngine  implements  GameEngine {
      * @param isTie if game ended in a tie
      */
     private void saveRecord(boolean isTie) {
-        if (isTie) {
-            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingX(), TIE, ticState.getPlayerPlayingO()));
-            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingO(), TIE, ticState.getPlayerPlayingX()));
-        }
-        else if (ticState.getPlayerPlayingX().equals(ticState.getWinner()))
-        {
-            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingX(), WON, ticState.getPlayerPlayingO()));
-            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingO(), LOST, ticState.getPlayerPlayingX()));
-        }
-        else {
-            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingX(), LOST, ticState.getPlayerPlayingO()));
-            gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingO(), WON, ticState.getPlayerPlayingX()));
+        try {
+            if (isTie) {
+                gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingX(), TIE, ticState.getPlayerPlayingO()));
+                gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingO(), TIE, ticState.getPlayerPlayingX()));
+            } else if (ticState.getPlayerPlayingX().equals(ticState.getWinner())) {
+                gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingX(), WON, ticState.getPlayerPlayingO()));
+                gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingO(), LOST, ticState.getPlayerPlayingX()));
+            } else {
+                gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingX(), LOST, ticState.getPlayerPlayingO()));
+                gameRecordsDao.create(new GameRecord(ticState.getPlayerPlayingO(), WON, ticState.getPlayerPlayingX()));
+            }
+        }catch (Exception ex) {
+            logger.info(ex.getMessage());
+           
         }
     }
 

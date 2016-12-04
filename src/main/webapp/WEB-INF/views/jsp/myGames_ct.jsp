@@ -18,6 +18,12 @@
         </c:otherwise>
     </c:choose><br/>
 
+    <table>
+        <c:forEach var="error"  items="${requestScope.errors}" >
+            <tr><td>${error.key}: </td><td>${error.value}</td></tr>
+        </c:forEach>
+    </table>
+
     <a class="button" href="/myGames"/>Search Again</a>
     <!--End of included content -->
 </div>  <!--End of header Div-->

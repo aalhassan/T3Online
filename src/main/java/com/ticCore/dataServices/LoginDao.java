@@ -22,10 +22,13 @@ public class LoginDao extends BaseDao {
     @Override
     public List<?> getWithLimit(HashMap<String,Object> restrictions, int limit)
                 throws HibernateException {
-        Criteria criteria = getSession().createCriteria(Login.class);
+        Session session = getSession();
+        Criteria criteria = session.createCriteria(Login.class);
         criteria.setMaxResults(limit);
-            criteria.add(Restrictions.allEq(restrictions));
-        return criteria.list();
+        criteria.add(Restrictions.allEq(restrictions));
+        List<?> loginInfo =  criteria.list();
+        closeSession(session);
+        return loginInfo;
     }
 
 }

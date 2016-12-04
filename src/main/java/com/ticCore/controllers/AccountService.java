@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.stereotype.Controller ;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 
@@ -29,8 +29,9 @@ import java.util.*;
 
 @Controller
 public class AccountService {
+    private static final String UPDATE_ERROR = "Error updating player info, please try again";
+    private static final String CREATE_ERROR = "Error registering player. Please call our customer support for help";
     private final Logger logger = Logger.getLogger(this.getClass());
-    private static final String REDIRECT_PREFIX = "redirect:/";
 
     @Autowired
     private BaseDao playersDao;
@@ -65,7 +66,7 @@ public class AccountService {
      */
     @RequestMapping (value="savePlayer", method= RequestMethod.POST)
     public String register(@ModelAttribute Player player, BindingResult bindingResult) {
-        String redirectPage = MainController.HOME_PAGE;
+        String redirectPage = MainController.REG_SUCCESSFUL;
         playersValidator.validate(player,bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -80,7 +81,9 @@ public class AccountService {
             try {
                 playersDao.create(player);
             } catch (HibernateException ex) {
-                logger.info(ex.getMessage());
+
+               logger.trace(ex);
+                bindingResult.addError(new ObjectError(MainController.SYSTEM_ERROR, CREATE_ERROR));
                 redirectPage = MainController.REGISTER_FORM_PAGE;
             }
         }
@@ -127,12 +130,12 @@ public class AccountService {
             try {
                 playersDao.update(player);
             } catch (HibernateException ex) {
-
+                logger.trace(ex);
+                bindingResult.addError(new ObjectError(MainController.SYSTEM_ERROR, UPDATE_ERROR));
                 redirectPage = MainController.PASS_RESET_PAGE;
             }
 
         }
-
         return redirectPage;
 
     }

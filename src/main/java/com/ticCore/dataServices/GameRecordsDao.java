@@ -26,18 +26,24 @@ public class GameRecordsDao extends BaseDao {
     @Override
     public List<?> get(HashMap<String,Object> restrictions)
             throws HibernateException {
-        Criteria criteria = getSession().createCriteria(GameRecord.class);
+        Session session= getSession();
+        Criteria criteria = session.createCriteria(GameRecord.class);
         criteria.add(Restrictions.allEq(restrictions));
-        return criteria.list();
+        List<?> gameRecords = criteria.list();
+        closeSession(session);
+        return gameRecords;
     }
 
     @Override
     public List<?> getWithLimit(HashMap<String,Object> restrictions, int limit)
             throws HibernateException {
-        Criteria criteria = getSession().createCriteria(GameRecord.class);
+        Session session= getSession();
+        Criteria criteria = session.createCriteria(GameRecord.class);
         criteria.setMaxResults(limit);
         criteria.add(Restrictions.allEq(restrictions));
-        return criteria.list();
+        List<?> gameRecords = criteria.list();
+        closeSession(session);
+        return gameRecords;
     }
 
     @Override
@@ -46,6 +52,7 @@ public class GameRecordsDao extends BaseDao {
         final Transaction transaction = session.beginTransaction();
         Serializable id = session.save(entity);
         transaction.commit();
+        closeSession(session);
         return id;
     }
 
