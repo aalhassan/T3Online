@@ -37,7 +37,7 @@ public class AccountServiceTest {
     public void testCrudOperations() throws Exception {
         Player testPlayer = new Player(TEST_PRE+"3@mail.com", "testPass", "test1", "testlast", "Mom", "Matrix");
         String redirectPage = accountService.register(testPlayer, bindingResult );
-        assertEquals("Redirection page failed", "index", redirectPage);
+        assertEquals("Redirection page failed", MainController.REG_SUCCESSFUL, redirectPage);
         Player loadedPlayer = accountService.getPlayer(testPlayer);
         assertEquals("Wrong player fetched",testPlayer.getEmail(), loadedPlayer.getEmail());
     }

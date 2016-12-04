@@ -17,11 +17,6 @@ import java.util.List;
  */
 @Service
 public class GameRecordsDao extends BaseDao {
-    @Override
-    protected Session getSession() {
-        return SessionFactoryProvider.getSessionFactory().openSession();
-    }
-
 
     @Override
     public List<?> get(HashMap<String,Object> restrictions)

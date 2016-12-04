@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="top_top"></div>
 <div id="header" class="top_content">
-    <p> Your registration was successful <br/>
+    <p> Your registration was successful! <br/>
             Please sign in from <a href="home">home page</a>
     </p>
     <!--End of included content -->

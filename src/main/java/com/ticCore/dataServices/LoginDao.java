@@ -15,11 +15,6 @@ import java.util.List;
 public class LoginDao extends BaseDao {
 
     @Override
-    protected Session getSession() {
-        return SessionFactoryProvider.getSessionFactory().openSession();
-    }
-
-    @Override
     public List<?> getWithLimit(HashMap<String,Object> restrictions, int limit)
                 throws HibernateException {
         Session session = getSession();

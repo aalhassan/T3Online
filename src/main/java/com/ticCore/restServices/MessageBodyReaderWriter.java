@@ -21,7 +21,7 @@ import java.lang.reflect.*;
 /**
  * This is the main class for the implementation
  * of MessageBodyReader and MessageBodyWriter
- *
+ * It's a provider class to help with serialization and deserialization of entities
  * @author Mej Al
  */
 @Provider

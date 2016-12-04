@@ -31,7 +31,10 @@ public abstract class BaseDao {
      * @return Session to perform db transactions  */
 
 
-    abstract protected Session getSession() ;
+     protected Session getSession() {
+
+             return SessionFactoryProvider.getSessionFactory().openSession();
+     }
 
 
     /**
