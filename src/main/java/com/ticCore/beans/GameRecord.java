@@ -29,6 +29,7 @@ public class GameRecord {
     }
 
     public GameRecord(String playerId, String result, String opponentId) {
+        this();
         this.playerId = playerId;
         this.result = result;
         this.opponentId = opponentId;

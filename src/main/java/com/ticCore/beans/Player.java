@@ -57,6 +57,7 @@ public class Player implements Serializable {
      * @param answer2
      */
     public Player(String email, String password, String firstName, String lastName, String answer1, String answer2) {
+        this();
         this.email = email;
         this.password = password;
         this.firstName = firstName;

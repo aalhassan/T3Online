@@ -14,6 +14,8 @@ public class Login {
     @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "id")
+
+
     private int id;
 
     @Column(name = "first_name")
